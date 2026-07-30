@@ -1,16 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, Zap, Target, BookOpen, Globe, Award, Shield, CheckCircle2 } from "lucide-react";
+import { ChevronDown, Menu, Zap, Lightbulb, Rocket, Users } from "lucide-react";
 
 export const metadata = {
   title: "About Us - Untitled UI",
-  description: "Demystifying cross-border legal and investment complexity across Africa.",
+  description: "Our mission is to empower teams to build better products together.",
 };
 
 export default function AboutPage() {
   return (
     <div className="min-h-screen bg-white text-navy font-sans selection:bg-cream selection:text-navy">
-      {/* Header */}
+      {/* Navigation */}
       <header className="border-b border-gray-100 bg-white">
         <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
@@ -22,22 +22,13 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8 text-base font-medium text-navy/70">
-            <Link href="/" className="hover:text-navy transition-colors">
-              Home
-            </Link>
-            <button className="flex items-center gap-1 hover:text-navy transition-colors">
-              Products <ChevronDown className="h-4 w-4" />
-            </button>
-            <button className="flex items-center gap-1 hover:text-navy transition-colors">
-              Blog <ChevronDown className="h-4 w-4" />
-            </button>
-            <Link href="#" className="hover:text-navy transition-colors">
-              Pricing
-            </Link>
-            <Link href="/about" className="text-navy">
-              About us
-            </Link>
+                                        <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
+            <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
+            <Link href="/services" className="hover:text-[#101828] transition-colors">Services</Link>
+            <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
+            <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
+            <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
+            <Link href="/contact" className="hover:text-[#101828] transition-colors">Contact</Link>
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
@@ -55,165 +46,148 @@ export default function AboutPage() {
             </Link>
           </div>
 
-          <button className="md:hidden text-navy/70 hover:text-navy transition-colors">
+          <button className="lg:hidden text-navy/70 hover:text-navy transition-colors">
             <Menu className="h-6 w-6 text-gold" />
           </button>
         </div>
       </header>
 
-      <main>
-        {/* Hero / Mission Statement */}
-        <section className="bg-navy relative overflow-hidden px-4 py-24 sm:px-6 lg:px-8 text-white">
-          <div className="absolute inset-0 bg-gradient-to-br from-navy via-navy to-navy-2 opacity-90" />
-          <div className="relative z-10 mx-auto max-w-4xl text-center">
-            <span className="text-gold font-semibold tracking-wider uppercase text-sm mb-4 block">Our Mission</span>
-            <h1 className="text-4xl font-bold tracking-tight sm:text-5xl lg:text-6xl mb-6 text-white">
-              Demystifying cross-border legal and investment complexity across Africa.
-            </h1>
-            <p className="text-lg text-white/80 max-w-2xl mx-auto leading-relaxed">
-              We exist to provide clear, actionable insights for those navigating the intricate legal and business landscapes of African markets.
-            </p>
+      <main className="pb-0">
+        {/* Hero Section */}
+        <section className="px-4 py-20 text-center max-w-4xl mx-auto">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#101828] mb-6 tracking-tight">
+            Our mission is to empower teams to build better products together.
+          </h1>
+          <p className="text-xl text-[#475467] leading-relaxed max-w-3xl mx-auto">
+            We believe that the best tools fade into the background, allowing human creativity and collaboration to take center stage. We are building the infrastructure for the next generation of digital experiences.
+          </p>
+        </section>
+
+        {/* Hero Image */}
+        <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-24">
+          <div className="w-full aspect-[21/9] bg-gray-100 rounded-3xl overflow-hidden relative shadow-sm">
+            <Image 
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&q=80&w=2850" 
+              alt="Team collaboration" 
+              fill 
+              className="object-cover" 
+              referrerPolicy="no-referrer"
+              priority
+            />
           </div>
         </section>
 
-        {/* Who It's For */}
-        <section className="bg-cream py-20 px-4 sm:px-6 lg:px-8">
-          <div className="mx-auto max-w-7xl">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl font-bold text-navy">Who We Serve</h2>
-              <p className="mt-4 text-navy/70 max-w-2xl mx-auto">Our platform is meticulously designed to support key players driving African growth.</p>
-            </div>
+        <div className="bg-[#f9fafb] py-24 border-t border-gray-100">
+          {/* Our Values */}
+          <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-24">
+            <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#101828] mb-12">Our Values</h2>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-navy/5 hover:border-gold/30 transition-colors">
-                <Globe className="h-10 w-10 text-gold mb-6" />
-                <h3 className="text-xl font-bold text-navy mb-3">Diaspora Investors</h3>
-                <p className="text-navy/70 leading-relaxed">Connecting you with secure, compliant investment pathways back home, mitigating risk and maximizing impact.</p>
-              </div>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-navy/5 hover:border-gold/30 transition-colors">
-                <Target className="h-10 w-10 text-gold mb-6" />
-                <h3 className="text-xl font-bold text-navy mb-3">Institutional Investors</h3>
-                <p className="text-navy/70 leading-relaxed">Providing deep-dive regulatory analysis and compliance frameworks for large-scale capital deployment.</p>
-              </div>
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-navy/5 hover:border-gold/30 transition-colors">
-                <BookOpen className="h-10 w-10 text-gold mb-6" />
-                <h3 className="text-xl font-bold text-navy mb-3">Startup Founders</h3>
-                <p className="text-navy/70 leading-relaxed">Guiding entrepreneurs entering African markets through formation, governance, and capital raising.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Founder Bio */}
-        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-white">
-          <div className="mx-auto max-w-7xl">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-              <div className="relative aspect-[4/5] w-full rounded-3xl overflow-hidden bg-cream shadow-sm">
-                <Image
-                  src="https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=1200"
-                  alt="Ian - Founder"
-                  fill
-                  className="object-cover"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div>
-                <span className="text-gold font-semibold tracking-wider uppercase text-sm mb-4 block">The Founder</span>
-                <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-6">Ian</h2>
-                <p className="text-navy/70 text-lg leading-relaxed mb-8">
-                  Ian is a seasoned legal professional with extensive experience navigating the complexities of African legal frameworks. With deep expertise in cross-border transactions, he founded the platform to bridge the information gap for investors and founders.
+              {/* Value 1 */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="w-12 h-12 bg-[#f4ebff] text-[#7f56d9] rounded-full flex items-center justify-center mb-6">
+                  <Lightbulb className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-[#101828] mb-3">Clarity above all</h3>
+                <p className="text-[#475467] leading-relaxed">
+                  We prioritize clear communication and intuitive design. Complexity should be managed internally so our users experience only simplicity and power.
                 </p>
-                <ul className="space-y-6">
-                  <li className="flex items-start gap-4">
-                    <div className="bg-cream p-3 rounded-xl">
-                      <Award className="h-6 w-6 text-gold shrink-0" />
-                    </div>
-                    <div>
-                      <strong className="block text-navy font-bold text-lg mb-1">Credentials & Admissions</strong>
-                      <span className="text-navy/70 leading-relaxed">Admitted to the Bar, with specialized certifications in international corporate law and cross-border transactions.</span>
-                    </div>
-                  </li>
-                  <li className="flex items-start gap-4">
-                    <div className="bg-cream p-3 rounded-xl">
-                      <BookOpen className="h-6 w-6 text-gold shrink-0" />
-                    </div>
-                    <div>
-                      <strong className="block text-navy font-bold text-lg mb-1">Relevant Experience</strong>
-                      <span className="text-navy/70 leading-relaxed">Years of advising high-net-worth individuals, institutional funds, and tech startups expanding across the continent.</span>
-                    </div>
-                  </li>
-                </ul>
+              </div>
+              {/* Value 2 */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="w-12 h-12 bg-[#f4ebff] text-[#7f56d9] rounded-full flex items-center justify-center mb-6">
+                  <Users className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-[#101828] mb-3">Radical Collaboration</h3>
+                <p className="text-[#475467] leading-relaxed">
+                  Great products are not built in silos. We foster an environment where ideas are shared freely, critiqued constructively, and improved collectively.
+                </p>
+              </div>
+              {/* Value 3 */}
+              <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
+                <div className="w-12 h-12 bg-[#f4ebff] text-[#7f56d9] rounded-full flex items-center justify-center mb-6">
+                  <Rocket className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-[#101828] mb-3">Continuous Velocity</h3>
+                <p className="text-[#475467] leading-relaxed">
+                  We move fast, but with purpose. We believe in shipping early, learning rapidly from real-world usage, and iterating relentlessly.
+                </p>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
 
-        {/* Areas of Focus */}
-        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-navy text-white relative overflow-hidden">
-          <div className="mx-auto max-w-7xl relative z-10">
-            <div className="text-center mb-16">
-              <span className="text-gold font-semibold tracking-wider uppercase text-sm mb-4 block">Our Expertise</span>
-              <h2 className="text-3xl sm:text-4xl font-bold mb-4 text-white">Areas of Focus</h2>
-              <p className="text-white/70 max-w-2xl mx-auto text-lg">Our expertise spans across key sectors critical to African economic development.</p>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              <div className="bg-navy-2 p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-gold mb-3 group-hover:text-white transition-colors">Real Estate</h3>
-                <p className="text-white/70 leading-relaxed">Navigating property rights, acquisitions, and commercial real estate development frameworks.</p>
-              </div>
-              <div className="bg-navy-2 p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-gold mb-3 group-hover:text-white transition-colors">Capital Markets</h3>
-                <p className="text-white/70 leading-relaxed">Insights into securities regulations, debt/equity financing, and public market entry.</p>
-              </div>
-              <div className="bg-navy-2 p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-gold mb-3 group-hover:text-white transition-colors">FDI & ESG</h3>
-                <p className="text-white/70 leading-relaxed">Foreign Direct Investment structuring aligned with robust Environmental, Social, and Governance standards.</p>
-              </div>
-              <div className="bg-navy-2 p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 group">
-                <h3 className="text-xl font-bold text-gold mb-3 group-hover:text-white transition-colors">Startup Law</h3>
-                <p className="text-white/70 leading-relaxed">Comprehensive legal roadmaps for tech startups, from incorporation to funding rounds and IP protection.</p>
-              </div>
-              <div className="bg-navy-2 p-8 rounded-2xl border border-white/5 hover:border-gold/30 transition-all duration-300 group lg:col-span-2">
-                <h3 className="text-xl font-bold text-gold mb-3 group-hover:text-white transition-colors">Corporate Governance</h3>
-                <p className="text-white/70 leading-relaxed">Establishing transparent, compliant, and efficient board structures and corporate practices for sustainable growth.</p>
+          {/* Our Journey */}
+          <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
+            <div className="bg-[#f0f2f5] border border-gray-200 rounded-3xl p-10 sm:p-16">
+              <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#101828] mb-16">Our Journey</h2>
+              
+              <div className="space-y-12">
+                {/* Milestone 1 */}
+                <div className="relative pl-8">
+                  <div className="absolute left-0 top-2 h-full w-[2px] bg-gray-300"></div>
+                  <div className="absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-[#7f56d9] border-[3px] border-[#f0f2f5] box-content"></div>
+                  <h3 className="text-2xl font-bold text-[#101828] mb-2">2021: The Genesis</h3>
+                  <p className="text-[#475467] text-lg">Founded in a small apartment with a singular vision to fix broken design handoffs.</p>
+                </div>
+                {/* Milestone 2 */}
+                <div className="relative pl-8">
+                  <div className="absolute left-0 top-2 h-full w-[2px] bg-gray-300"></div>
+                  <div className="absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-[#7f56d9] border-[3px] border-[#f0f2f5] box-content"></div>
+                  <h3 className="text-2xl font-bold text-[#101828] mb-2">2022: Seed Round & V1</h3>
+                  <p className="text-[#475467] text-lg">Secured $2M in seed funding and successfully launched our first public beta to 1,000 teams.</p>
+                </div>
+                {/* Milestone 3 */}
+                <div className="relative pl-8">
+                  <div className="absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-[#7f56d9] border-[3px] border-[#f0f2f5] box-content"></div>
+                  <h3 className="text-2xl font-bold text-[#101828] mb-2">2024: Scaling Up</h3>
+                  <p className="text-[#475467] text-lg">Reached 50,000 active users, expanded our team to 40 talented individuals, and introduced advanced AI workflows.</p>
+                </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </div>
 
-        {/* Editorial Approach */}
-        <section className="py-24 px-4 sm:px-6 lg:px-8 bg-cream">
-          <div className="mx-auto max-w-7xl text-center">
-            <span className="text-gold font-semibold tracking-wider uppercase text-sm mb-4 block">Our Commitment</span>
-            <h2 className="text-3xl sm:text-4xl font-bold text-navy mb-16">Editorial Approach & Values</h2>
+        {/* Meet the Team */}
+        <section className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
+          <h2 className="text-3xl sm:text-4xl font-bold text-[#101828] mb-4">Meet the Team</h2>
+          <p className="text-lg text-[#475467] mb-16">The people building the future of collaboration.</p>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="flex flex-col items-center">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden bg-gray-100 mb-4 shadow-sm border border-gray-100">
+                <Image src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&q=80&w=300" alt="Sarah Jenkins" fill className="object-cover" referrerPolicy="no-referrer" />
+              </div>
+              <h3 className="text-lg font-bold text-[#101828]">Sarah Jenkins</h3>
+              <p className="text-[#475467] text-sm">CEO & Co-founder</p>
+            </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-              <div className="flex flex-col items-center">
-                <div className="h-16 w-16 bg-white rounded-2xl flex items-center justify-center mb-6 text-gold shadow-sm border border-navy/5">
-                  <BookOpen className="h-8 w-8" />
-                </div>
-                <h3 className="text-xl font-bold text-navy mb-3">Deeply Researched</h3>
-                <p className="text-navy/70 leading-relaxed">Every piece of content is backed by rigorous legal research and verified against current statutes and market practices.</p>
+            <div className="flex flex-col items-center">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden bg-gray-100 mb-4 shadow-sm border border-gray-100">
+                <Image src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=300" alt="David Chen" fill className="object-cover" referrerPolicy="no-referrer" />
               </div>
-              <div className="flex flex-col items-center">
-                <div className="h-16 w-16 bg-white rounded-2xl flex items-center justify-center mb-6 text-gold shadow-sm border border-navy/5">
-                  <Shield className="h-8 w-8" />
-                </div>
-                <h3 className="text-xl font-bold text-navy mb-3">Uncompromising Accuracy</h3>
-                <p className="text-navy/70 leading-relaxed">As a legal-adjacent platform, trust is our currency. We maintain strict editorial standards to ensure all analysis is precise and reliable.</p>
+              <h3 className="text-lg font-bold text-[#101828]">David Chen</h3>
+              <p className="text-[#475467] text-sm">CTO & Co-founder</p>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden bg-gray-100 mb-4 shadow-sm border border-gray-100">
+                <Image src="https://images.unsplash.com/photo-1580489944761-15a19d654956?auto=format&fit=crop&q=80&w=300" alt="Elena Rodriguez" fill className="object-cover" referrerPolicy="no-referrer" />
               </div>
-              <div className="flex flex-col items-center">
-                <div className="h-16 w-16 bg-white rounded-2xl flex items-center justify-center mb-6 text-gold shadow-sm border border-navy/5">
-                  <CheckCircle2 className="h-8 w-8" />
-                </div>
-                <h3 className="text-xl font-bold text-navy mb-3">Regularly Updated</h3>
-                <p className="text-navy/70 leading-relaxed">African legal landscapes evolve rapidly. We commit to continuous updates, ensuring our insights remain highly relevant.</p>
+              <h3 className="text-lg font-bold text-[#101828]">Elena Rodriguez</h3>
+              <p className="text-[#475467] text-sm">Head of Design</p>
+            </div>
+            
+            <div className="flex flex-col items-center">
+              <div className="relative w-32 h-32 rounded-full overflow-hidden bg-gray-100 mb-4 shadow-sm border border-gray-100">
+                <Image src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=300" alt="Marcus Johnson" fill className="object-cover" referrerPolicy="no-referrer" />
               </div>
+              <h3 className="text-lg font-bold text-[#101828]">Marcus Johnson</h3>
+              <p className="text-[#475467] text-sm">Lead Engineer</p>
             </div>
           </div>
         </section>
       </main>
 
-      {/* CTA and Footer */}
+      {/* CTA and Footer Section */}
       <div className="bg-charcoal pt-20 rounded-t-[40px] px-4 sm:px-6 lg:px-8 text-white">
         <div className="mx-auto max-w-2xl text-center pb-20 border-b border-white/10">
           <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
@@ -266,7 +240,7 @@ export default function AboutPage() {
             <div>
               <h3 className="text-sm font-semibold text-white/50">Resources</h3>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Blog</Link></li>
+                <li><Link href="/blogs" className="text-white/70 hover:text-gold transition-colors">Blog</Link></li>
                 <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Newsletter</Link></li>
                 <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Events</Link></li>
                 <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Help centre</Link></li>
