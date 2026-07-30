@@ -29,9 +29,9 @@ export default function AboutPage() {
             <button className="flex items-center gap-1 hover:text-navy transition-colors">
               Products <ChevronDown className="h-4 w-4" />
             </button>
-            <button className="flex items-center gap-1 hover:text-navy transition-colors">
+            <Link href="/blogs" className="flex items-center gap-1 hover:text-navy transition-colors">
               Blog <ChevronDown className="h-4 w-4" />
-            </button>
+            </Link>
             <Link href="#" className="hover:text-navy transition-colors">
               Pricing
             </Link>
@@ -266,7 +266,7 @@ export default function AboutPage() {
             <div>
               <h3 className="text-sm font-semibold text-white/50">Resources</h3>
               <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Blog</Link></li>
+                <li><Link href="/blogs" className="text-white/70 hover:text-gold transition-colors">Blog</Link></li>
                 <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Newsletter</Link></li>
                 <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Events</Link></li>
                 <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Help centre</Link></li>
