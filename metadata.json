@@ -1,0 +1,8 @@
+{
+  "name": "Untitled UI Blog",
+  "description": "A modern blog interface with a hero section, recent posts grid, and clean typography based on Untitled UI.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
