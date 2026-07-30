@@ -17,22 +17,13 @@ export default function BlogHome() {
             </Link>
           </div>
 
-          <nav className="hidden md:flex items-center gap-8 text-base font-medium text-navy/70">
-            <Link href="/" className="text-navy">
-              Home
-            </Link>
-            <button className="flex items-center gap-1 hover:text-navy transition-colors">
-              Products <ChevronDown className="h-4 w-4" />
-            </button>
-            <Link href="/blogs" className="flex items-center gap-1 hover:text-navy transition-colors">
-              Blog <ChevronDown className="h-4 w-4" />
-            </Link>
-            <Link href="#" className="hover:text-navy transition-colors">
-              Pricing
-            </Link>
-            <Link href="/about" className="hover:text-navy transition-colors">
-              About us
-            </Link>
+                                        <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
+            <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
+            <Link href="/services" className="hover:text-[#101828] transition-colors">Services</Link>
+            <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
+            <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
+            <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
+            <Link href="/contact" className="hover:text-[#101828] transition-colors">Contact</Link>
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
@@ -50,7 +41,7 @@ export default function BlogHome() {
             </Link>
           </div>
 
-          <button className="md:hidden text-navy/70 hover:text-navy transition-colors">
+          <button className="lg:hidden text-navy/70 hover:text-navy transition-colors">
             <Menu className="h-6 w-6 text-gold" />
           </button>
         </div>
