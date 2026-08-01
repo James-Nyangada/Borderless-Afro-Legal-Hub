@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import Footer from "@/components/Footer";
 import { ChevronDown, Menu, Zap, Download, Palette, ArrowRight } from "lucide-react";
 
 export const metadata = {
@@ -24,7 +25,7 @@ export default function MediaPage() {
 
                                         <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
             <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
-            <Link href="/services" className="hover:text-[#101828] transition-colors">Services</Link>
+            <Link href="/categories" className="hover:text-[#101828] transition-colors">Categories</Link>
             <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
             <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
             <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
@@ -32,18 +33,13 @@ export default function MediaPage() {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="#"
-              className="text-base font-medium text-navy/70 hover:text-navy transition-colors"
-            >
-              Log in
-            </Link>
-            <Link
+            <a href={process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://localhost:3001'} className="text-base font-medium text-navy/70 hover:text-navy transition-colors">Log in</a>
+            {/* <Link
               href="#"
               className="rounded-lg bg-navy px-4 py-2.5 text-base font-medium text-white hover:bg-navy-2 transition-colors"
             >
               Sign up
-            </Link>
+            </Link> */}
           </div>
 
           <button className="lg:hidden text-navy/70 hover:text-navy transition-colors">
@@ -151,115 +147,7 @@ export default function MediaPage() {
 
       </main>
 
-      {/* CTA and Footer Section */}
-      <div className="bg-charcoal pt-20 rounded-t-[40px] px-4 sm:px-6 lg:px-8 text-white">
-        <div className="mx-auto max-w-2xl text-center pb-20 border-b border-white/10">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Let's get started on something great
-          </h2>
-          <p className="mt-4 text-lg text-white/70">
-            Join over 4,000+ startups already growing with Untitled.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="w-full sm:w-auto rounded-lg border border-gold bg-transparent px-6 py-3 text-base font-medium text-gold hover:bg-gold/10 focus:outline-none focus:ring-2 focus:ring-gold transition-colors">
-              Chat to us
-            </button>
-            <button className="w-full sm:w-auto rounded-lg bg-gold px-6 py-3 text-base font-medium text-navy hover:bg-[#b08e4f] focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-charcoal transition-colors shadow-sm">
-              Get started
-            </button>
-          </div>
-        </div>
-
-        <footer className="mx-auto max-w-7xl pb-12 pt-16">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-6 lg:gap-12">
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Product</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Overview</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Features</Link></li>
-                <li>
-                  <Link href="#" className="group flex items-center gap-2 text-white/70 hover:text-gold transition-colors">
-                    Solutions
-                    <span className="rounded-full bg-gold/10 px-2 py-0.5 text-xs font-medium text-gold border border-gold/20 group-hover:bg-gold/20 transition-colors">
-                      New
-                    </span>
-                  </Link>
-                </li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Tutorials</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Pricing</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Releases</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Company</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="/about" className="text-white/70 hover:text-gold transition-colors">About us</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Careers</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Press</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">News</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Media kit</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Resources</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="/blogs" className="text-white/70 hover:text-gold transition-colors">Blog</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Newsletter</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Events</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Help centre</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Tutorials</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Support</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Use cases</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Startups</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Enterprise</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Government</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">SaaS centre</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Marketplaces</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Ecommerce</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Social</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Twitter</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">LinkedIn</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Facebook</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">GitHub</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">AngelList</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Dribbble</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Legal</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Terms</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Privacy</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Cookies</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Licenses</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Settings</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-gold text-navy">
-                <Zap className="h-5 w-5 fill-current" />
-              </div>
-              <span className="text-xl font-bold text-white">Untitled UI</span>
-            </Link>
-            <p className="text-sm text-white/50">
-              © 2077 Untitled UI. All rights reserved.
-            </p>
-          </div>
-        </footer>
-      </div>
+      <Footer />
     </div>
   );
 }

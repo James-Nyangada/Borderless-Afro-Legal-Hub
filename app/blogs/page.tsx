@@ -1,13 +1,62 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ChevronDown, Menu, Zap, Search } from "lucide-react";
+import Footer from "@/components/Footer";
+import BlogCard from "@/components/BlogCard";
+
+async function getPosts() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/posts`, { next: { revalidate: 60 } });
+    if (!res.ok) throw new Error('Failed to fetch');
+    const data = await res.json();
+    return data.data.posts;
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return null;
+  }
+}
+
+async function getCategories() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/categories`, { next: { revalidate: 60 } });
+    if (!res.ok) return [];
+    const data = await res.json();
+    return data.data?.categories || data.data || [];
+  } catch (error) {
+    console.error('Error fetching categories:', error);
+    return [];
+  }
+}
 
 export const metadata = {
   title: "Blog - Untitled UI",
   description: "The Untitled UI Blog. Tools and strategies modern teams need to help their companies grow.",
 };
 
-export default function BlogsPage() {
+export default async function BlogsPage({ searchParams }: { searchParams: Promise<{ category?: string }> }) {
+  const resolvedParams = await searchParams;
+  const categoryFilter = resolvedParams?.category;
+
+  const fetchedPosts = await getPosts();
+  const allPosts = fetchedPosts || posts;
+  const categoriesList = await getCategories();
+
+  const filteredPosts = categoryFilter 
+    ? allPosts.filter((p: any) => {
+        // API provides p.categories which might have a slug
+        const apiSlug = p.categories?.[0]?.slug;
+        const apiName = p.categories?.[0]?.name;
+        // Mock data provides p.category
+        const fallbackName = p.category;
+        
+        // Try to match against slug if available, otherwise slugify the name
+        const matchSlug = apiSlug || 
+          (apiName ? apiName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '') || 
+          (fallbackName ? fallbackName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '') : '');
+          
+        return matchSlug === categoryFilter.toLowerCase();
+      })
+    : allPosts;
   return (
     <div className="min-h-screen bg-white text-navy font-sans selection:bg-cream selection:text-navy">
       {/* Navigation */}
@@ -24,7 +73,7 @@ export default function BlogsPage() {
 
                                         <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
             <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
-            <Link href="/services" className="hover:text-[#101828] transition-colors">Services</Link>
+            <Link href="/categories" className="hover:text-[#101828] transition-colors">Categories</Link>
             <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
             <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
             <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
@@ -32,18 +81,13 @@ export default function BlogsPage() {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="#"
-              className="text-base font-medium text-navy/70 hover:text-navy transition-colors"
-            >
-              Log in
-            </Link>
-            <Link
+            <a href={process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://localhost:3001'} className="text-base font-medium text-navy/70 hover:text-navy transition-colors">Log in</a>
+            {/* <Link
               href="#"
               className="rounded-lg bg-navy px-4 py-2.5 text-base font-medium text-white hover:bg-navy-2 transition-colors"
             >
               Sign up
-            </Link>
+            </Link> */}
           </div>
 
           <button className="lg:hidden text-navy/70 hover:text-navy transition-colors">
@@ -77,191 +121,52 @@ export default function BlogsPage() {
         {/* Categories / Filter */}
         <section className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-wrap items-center gap-2 pb-6 border-b border-navy/10">
-            <button className="px-4 py-2 rounded-full bg-cream text-navy font-medium text-sm transition-colors border border-navy/5">
+            <Link 
+              href="/blogs"
+              className={`px-4 py-2 rounded-full font-medium text-sm transition-colors ${!categoryFilter ? 'bg-cream text-navy border border-navy/5' : 'text-navy/70 hover:bg-cream hover:text-navy'}`}
+            >
               View all
-            </button>
-            <button className="px-4 py-2 rounded-full text-navy/70 hover:bg-cream hover:text-navy transition-colors font-medium text-sm">
-              Design
-            </button>
-            <button className="px-4 py-2 rounded-full text-navy/70 hover:bg-cream hover:text-navy transition-colors font-medium text-sm">
-              Product
-            </button>
-            <button className="px-4 py-2 rounded-full text-navy/70 hover:bg-cream hover:text-navy transition-colors font-medium text-sm">
-              Software
-            </button>
-            <button className="px-4 py-2 rounded-full text-navy/70 hover:bg-cream hover:text-navy transition-colors font-medium text-sm">
-              Customer Success
-            </button>
+            </Link>
+            {categoriesList.length > 0 ? (
+              categoriesList.map((cat: any) => (
+                <Link 
+                  key={cat.slug || cat._id}
+                  href={`/blogs?category=${cat.slug}`}
+                  className={`px-4 py-2 rounded-full font-medium text-sm transition-colors ${categoryFilter === cat.slug ? 'bg-cream text-navy border border-navy/5' : 'text-navy/70 hover:bg-cream hover:text-navy'}`}
+                >
+                  {cat.name}
+                </Link>
+              ))
+            ) : (
+              // Fallback to static if backend fails
+              <>
+                <Link href="/blogs?category=design" className={`px-4 py-2 rounded-full font-medium text-sm transition-colors ${categoryFilter === 'design' ? 'bg-cream text-navy border border-navy/5' : 'text-navy/70 hover:bg-cream hover:text-navy'}`}>Design</Link>
+                <Link href="/blogs?category=product" className={`px-4 py-2 rounded-full font-medium text-sm transition-colors ${categoryFilter === 'product' ? 'bg-cream text-navy border border-navy/5' : 'text-navy/70 hover:bg-cream hover:text-navy'}`}>Product</Link>
+                <Link href="/blogs?category=software" className={`px-4 py-2 rounded-full font-medium text-sm transition-colors ${categoryFilter === 'software' ? 'bg-cream text-navy border border-navy/5' : 'text-navy/70 hover:bg-cream hover:text-navy'}`}>Software</Link>
+              </>
+            )}
           </div>
         </section>
 
         {/* Blog Grid */}
         <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {posts.map((post, idx) => (
-              <article
-                key={idx}
-                className="group flex flex-col items-start justify-between cursor-pointer"
-              >
-                <div className="w-full overflow-hidden rounded-2xl bg-cream relative aspect-[4/3]">
-                  <Image
-                    src={post.image}
-                    alt={post.title}
-                    fill
-                    className="object-cover transition-transform duration-300 group-hover:scale-105"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <div className="mt-6 flex flex-col flex-1 w-full">
-                  <span className="text-sm font-semibold text-gold mb-2 block">
-                    {post.category}
-                  </span>
-                  <h3 className="text-xl font-bold leading-6 text-navy transition-colors group-hover:text-navy-2">
-                    {post.title}
-                  </h3>
-                  <p className="mt-3 line-clamp-3 text-sm leading-6 text-navy/70 flex-1">
-                    {post.excerpt}
-                  </p>
-                  <div className="mt-6 flex items-center gap-3">
-                    <div className="relative h-10 w-10 overflow-hidden rounded-full bg-cream">
-                      <Image
-                        src={post.author.image}
-                        alt={post.author.name}
-                        fill
-                        className="object-cover"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                    <div className="text-sm font-medium leading-6">
-                      <span className="text-navy">{post.author.name}</span>
-                      <span className="text-navy/50 font-normal mx-1">•</span>
-                      <span className="text-navy/60 font-normal">
-                        {post.date}
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </article>
+            {filteredPosts.map((post: any, idx: number) => (
+              <div key={idx} className="h-full">
+                <BlogCard post={post} />
+              </div>
             ))}
           </div>
 
           <div className="mt-16 flex justify-center pb-8">
             <button className="rounded-lg bg-navy px-6 py-3 text-base font-medium text-white hover:bg-navy-2 focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2 transition-colors shadow-sm">
-              Loading more...
+              Load More...
             </button>
           </div>
         </section>
       </main>
 
-      {/* CTA and Footer Section */}
-      <div className="bg-charcoal pt-20 rounded-t-[40px] px-4 sm:px-6 lg:px-8 text-white">
-        <div className="mx-auto max-w-2xl text-center pb-20 border-b border-white/10">
-          <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-            Let's get started on something great
-          </h2>
-          <p className="mt-4 text-lg text-white/70">
-            Join over 4,000+ startups already growing with Untitled.
-          </p>
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="w-full sm:w-auto rounded-lg border border-gold bg-transparent px-6 py-3 text-base font-medium text-gold hover:bg-gold/10 focus:outline-none focus:ring-2 focus:ring-gold transition-colors">
-              Chat to us
-            </button>
-            <button className="w-full sm:w-auto rounded-lg bg-gold px-6 py-3 text-base font-medium text-navy hover:bg-[#b08e4f] focus:outline-none focus:ring-2 focus:ring-gold focus:ring-offset-2 focus:ring-offset-charcoal transition-colors shadow-sm">
-              Get started
-            </button>
-          </div>
-        </div>
-
-        <footer className="mx-auto max-w-7xl pb-12 pt-16">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-6 lg:gap-12">
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Product</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Overview</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Features</Link></li>
-                <li>
-                  <Link href="#" className="group flex items-center gap-2 text-white/70 hover:text-gold transition-colors">
-                    Solutions
-                    <span className="rounded-full bg-gold/10 px-2 py-0.5 text-xs font-medium text-gold border border-gold/20 group-hover:bg-gold/20 transition-colors">
-                      New
-                    </span>
-                  </Link>
-                </li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Tutorials</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Pricing</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Releases</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Company</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="/about" className="text-white/70 hover:text-gold transition-colors">About us</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Careers</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Press</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">News</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Media kit</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Resources</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="/blogs" className="text-white/70 hover:text-gold transition-colors">Blog</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Newsletter</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Events</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Help centre</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Tutorials</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Support</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Use cases</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Startups</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Enterprise</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Government</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">SaaS centre</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Marketplaces</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Ecommerce</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Social</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Twitter</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">LinkedIn</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Facebook</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">GitHub</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">AngelList</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Dribbble</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Legal</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Terms</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Privacy</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Cookies</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Licenses</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Settings</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-gold text-navy">
-                <Zap className="h-5 w-5 fill-current" />
-              </div>
-              <span className="text-xl font-bold text-white">Untitled UI</span>
-            </Link>
-            <p className="text-sm text-white/50">
-              © 2077 Untitled UI. All rights reserved.
-            </p>
-          </div>
-        </footer>
-      </div>
+      <Footer />
     </div>
   );
 }

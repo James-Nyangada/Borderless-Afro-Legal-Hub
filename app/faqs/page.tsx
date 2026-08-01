@@ -1,12 +1,23 @@
 import Link from "next/link";
 import { ChevronDown, Menu, Zap, Search } from "lucide-react";
+import { fetchAPI } from "@/lib/api";
 
 export const metadata = {
   title: "FAQs - Untitled UI",
   description: "Everything you need to know about the product and billing.",
 };
 
-export default function FaqsPage() {
+export default async function FaqsPage() {
+  let faqData: any = {};
+  try {
+    const res = await fetchAPI('/pages/faq', { cache: 'no-store' });
+    faqData = res.data?.page?.content || {};
+  } catch (err) {
+    console.error("Failed to fetch faq page data", err);
+  }
+
+  const faqs = faqData?.faqs || [];
+
   return (
     <div className="min-h-screen bg-[#f9fafb] text-[#101828] font-sans selection:bg-[#f4ebff] selection:text-[#7f56d9] flex flex-col">
       {/* Navigation */}
@@ -21,9 +32,9 @@ export default function FaqsPage() {
             </Link>
           </div>
 
-                              <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
+          <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
             <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
-            <Link href="/services" className="hover:text-[#101828] transition-colors">Services</Link>
+            <Link href="/categories" className="hover:text-[#101828] transition-colors">Categories</Link>
             <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
             <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
             <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
@@ -31,18 +42,7 @@ export default function FaqsPage() {
           </nav>
 
           <div className="hidden md:flex items-center gap-4">
-            <Link
-              href="#"
-              className="text-base font-medium text-[#475467] hover:text-[#101828] transition-colors"
-            >
-              Log in
-            </Link>
-            <Link
-              href="#"
-              className="rounded-lg bg-[#7f56d9] px-4 py-2.5 text-base font-medium text-white hover:bg-[#6941c6] transition-colors"
-            >
-              Sign up
-            </Link>
+            <a href={process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://localhost:3001'} className="text-base font-medium text-[#475467] hover:text-[#101828] transition-colors">Log in</a>
           </div>
 
           <button className="lg:hidden text-[#475467] hover:text-[#101828] transition-colors">
@@ -58,7 +58,7 @@ export default function FaqsPage() {
             Frequently Asked Questions
           </h1>
           <p className="text-xl text-[#475467] mb-10">
-            Everything you need to know about the product and billing.
+            {faqData.subtitle || "Everything you need to know about the product and billing."}
           </p>
           
           <div className="relative max-w-xl mx-auto">
@@ -89,22 +89,23 @@ export default function FaqsPage() {
            
            {/* Accordion */}
            <div className="flex-1 space-y-4">
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex justify-between items-center cursor-pointer hover:border-gray-200 transition-colors">
-                <h3 className="text-[#101828] text-lg font-medium">Is there a free trial available?</h3>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex justify-between items-center cursor-pointer hover:border-gray-200 transition-colors">
-                <h3 className="text-[#101828] text-lg font-medium">Can I change my plan later?</h3>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex justify-between items-center cursor-pointer hover:border-gray-200 transition-colors">
-                <h3 className="text-[#101828] text-lg font-medium">What is your cancellation policy?</h3>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
-              </div>
-              <div className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 flex justify-between items-center cursor-pointer hover:border-gray-200 transition-colors">
-                <h3 className="text-[#101828] text-lg font-medium">How does billing work?</h3>
-                <ChevronDown className="w-5 h-5 text-gray-400" />
-              </div>
+              {faqs.length > 0 ? (
+                faqs.map((faq: any, index: number) => (
+                  <details key={index} className="bg-white rounded-xl shadow-sm border border-gray-100 group">
+                    <summary className="p-6 flex justify-between items-center cursor-pointer list-none hover:border-gray-200 transition-colors">
+                      <h3 className="text-[#101828] text-lg font-medium pr-4">{faq.question}</h3>
+                      <ChevronDown className="w-5 h-5 text-gray-400 shrink-0 group-open:-rotate-180 transition-transform duration-200" />
+                    </summary>
+                    <div className="px-6 pb-6 text-[#475467]">
+                      {faq.answer}
+                    </div>
+                  </details>
+                ))
+              ) : (
+                <div className="text-center py-12 text-[#475467]">
+                  No FAQs available at the moment.
+                </div>
+              )}
            </div>
         </section>
 
@@ -113,11 +114,11 @@ export default function FaqsPage() {
            <div className="bg-[#f4f3ff] rounded-2xl p-8 sm:p-10 flex flex-col md:flex-row items-center justify-between gap-6 border border-gray-100 shadow-sm">
               <div>
                 <h3 className="text-2xl font-bold text-[#101828] mb-2">Still have questions?</h3>
-                <p className="text-[#475467]">Can't find the answer you're looking for? Please chat to our friendly team.</p>
+                <p className="text-[#475467]">Can&apos;t find the answer you&apos;re looking for? Please chat to our friendly team.</p>
               </div>
-              <button className="shrink-0 px-5 py-3 rounded-lg bg-[#7f56d9] text-white font-medium hover:bg-[#6941c6] transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#7f56d9] focus:ring-offset-2">
+              <Link href="/contact" className="shrink-0 px-5 py-3 rounded-lg bg-[#7f56d9] text-white font-medium hover:bg-[#6941c6] transition-colors shadow-sm focus:outline-none focus:ring-2 focus:ring-[#7f56d9] focus:ring-offset-2 inline-block">
                 Get in touch
-              </button>
+              </Link>
            </div>
         </section>
       </main>
@@ -129,11 +130,11 @@ export default function FaqsPage() {
               <div className="flex h-6 w-6 items-center justify-center rounded bg-[#f4ebff] text-[#7f56d9]">
                 <Zap className="h-4 w-4 fill-current" />
               </div>
-              <span className="text-[#475467] text-sm">© 2024 Untitled UI. All rights reserved.</span>
+              <span className="text-[#475467] text-sm">© 2026 Untitled UI. All rights reserved.</span>
            </div>
            <div className="flex items-center gap-6 text-sm text-[#475467]">
               <Link href="#" className="hover:text-[#101828]">Terms</Link>
-              <Link href="/privacy" className="hover:text-[#101828]">Privacy</Link>
+              <Link href="/privacy-policy" className="hover:text-[#101828]">Privacy</Link>
               <Link href="#" className="hover:text-[#101828]">Cookies</Link>
               <Link href="/contact" className="hover:text-[#101828]">Contact</Link>
            </div>
