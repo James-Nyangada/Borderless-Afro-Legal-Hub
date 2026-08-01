@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Zap } from "lucide-react";
 import { fetchAPI } from "@/lib/api";
 import Footer from "@/components/Footer";
@@ -29,22 +30,7 @@ export default async function PrivacyPage() {
   return (
     <div className="min-h-screen bg-white text-[#101828] font-sans selection:bg-[#f4ebff] selection:text-[#7f56d9] flex flex-col">
       {/* Navigation */}
-      <header className="border-b border-gray-100 bg-white">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-[#f4ebff] text-[#7f56d9]">
-                <Zap className="h-5 w-5 fill-current" />
-              </div>
-              <span className="text-xl font-bold text-[#101828]">Untitled UI</span>
-            </Link>
-          </div>
-          
-          <Link href="/" className="text-sm font-medium text-[#475467] hover:text-[#101828] transition-colors">
-            Back to Home
-          </Link>
-        </div>
-      </header>
+      
 
       <main className="flex-1 pb-24">
         {/* Header Section */}

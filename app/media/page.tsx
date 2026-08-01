@@ -12,41 +12,7 @@ export default function MediaPage() {
   return (
     <div className="min-h-screen bg-white text-navy font-sans selection:bg-cream selection:text-navy">
       {/* Navigation */}
-      <header className="border-b border-gray-100 bg-white">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-navy text-white">
-                <Zap className="h-5 w-5 fill-current text-gold" />
-              </div>
-              <span className="text-xl font-bold text-navy">Untitled UI</span>
-            </Link>
-          </div>
-
-                                        <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
-            <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
-            <Link href="/categories" className="hover:text-[#101828] transition-colors">Categories</Link>
-            <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
-            <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
-            <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
-            <Link href="/contact" className="hover:text-[#101828] transition-colors">Contact</Link>
-          </nav>
-
-          <div className="hidden md:flex items-center gap-4">
-            <a href={process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://localhost:3001'} className="text-base font-medium text-navy/70 hover:text-navy transition-colors">Log in</a>
-            {/* <Link
-              href="#"
-              className="rounded-lg bg-navy px-4 py-2.5 text-base font-medium text-white hover:bg-navy-2 transition-colors"
-            >
-              Sign up
-            </Link> */}
-          </div>
-
-          <button className="lg:hidden text-navy/70 hover:text-navy transition-colors">
-            <Menu className="h-6 w-6 text-gold" />
-          </button>
-        </div>
-      </header>
+      
 
       <main className="pb-24 bg-[#f9fafb]">
         {/* Header Section */}

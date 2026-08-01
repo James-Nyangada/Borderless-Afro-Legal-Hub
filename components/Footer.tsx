@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Zap, Facebook, Twitter, Linkedin, Instagram, Youtube, Github, Globe } from "lucide-react";
 import { fetchAPI } from "@/lib/api";
 
@@ -53,10 +54,8 @@ export default async function Footer() {
           {/* Logo & Excerpt */}
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-gold text-navy">
-                <Zap className="h-5 w-5 fill-current" />
-              </div>
-              <span className="text-xl font-bold text-white">Untitled UI</span>
+              <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="rounded-full object-cover" />
+              <span className="text-xl font-bold text-white">Africa Diaspora Legal Hub</span>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
               Empowering teams to build better products together. We are building the infrastructure for the next generation of digital experiences.
@@ -96,8 +95,8 @@ export default async function Footer() {
           <div>
             <h3 className="text-sm font-semibold text-white/50 mb-6">Get in touch</h3>
             <ul className="space-y-4 text-sm">
-              <li><a href={`mailto:${contactData?.email || 'hello@untitled.com'}`} className="text-white/70 hover:text-gold transition-colors">{contactData?.email || 'hello@untitled.com'}</a></li>
-              <li><a href={`tel:${contactData?.phone || '+1 555 000 0000'}`} className="text-white/70 hover:text-gold transition-colors">{contactData?.phone || '+1 (555) 000-0000'}</a></li>
+              <li className="break-all"><a href={`mailto:${contactData?.email || 'hello@untitled.com'}`} className="text-white/70 hover:text-gold transition-colors">{contactData?.email || 'hello@untitled.com'}</a></li>
+              <li className="break-all"><a href={`tel:${contactData?.phone || '+1 555 000 0000'}`} className="text-white/70 hover:text-gold transition-colors">{contactData?.phone || '+1 (555) 000-0000'}</a></li>
             </ul>
           </div>
         </div>

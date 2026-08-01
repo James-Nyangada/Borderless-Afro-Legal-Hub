@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ChevronDown, Menu, Zap, Search } from "lucide-react";
 import { fetchAPI } from "@/lib/api";
 
@@ -21,35 +22,7 @@ export default async function FaqsPage() {
   return (
     <div className="min-h-screen bg-[#f9fafb] text-[#101828] font-sans selection:bg-[#f4ebff] selection:text-[#7f56d9] flex flex-col">
       {/* Navigation */}
-      <header className="border-b border-gray-100 bg-white">
-        <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center gap-3">
-            <Link href="/" className="flex items-center gap-2">
-              <div className="flex h-8 w-8 items-center justify-center rounded bg-[#f4ebff] text-[#7f56d9]">
-                <Zap className="h-5 w-5 fill-current" />
-              </div>
-              <span className="text-xl font-bold text-[#101828]">Untitled UI</span>
-            </Link>
-          </div>
-
-          <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
-            <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
-            <Link href="/categories" className="hover:text-[#101828] transition-colors">Categories</Link>
-            <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
-            <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
-            <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
-            <Link href="/contact" className="hover:text-[#101828] transition-colors">Contact</Link>
-          </nav>
-
-          <div className="hidden md:flex items-center gap-4">
-            <a href={process.env.NEXT_PUBLIC_DASHBOARD_URL || 'http://localhost:3001'} className="text-base font-medium text-[#475467] hover:text-[#101828] transition-colors">Log in</a>
-          </div>
-
-          <button className="lg:hidden text-[#475467] hover:text-[#101828] transition-colors">
-            <Menu className="h-6 w-6" />
-          </button>
-        </div>
-      </header>
+      
 
       <main className="flex-1 pb-24 bg-[#f9fafb]">
         {/* Header Section */}
