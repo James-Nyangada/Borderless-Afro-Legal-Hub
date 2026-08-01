@@ -16,10 +16,9 @@ export default function Navbar() {
   return (
     <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center gap-3 z-50">
+        <div className="flex items-center gap-3 z-50 py-2">
           <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
-            <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="rounded-full object-cover" />
-            <span className="text-xl font-bold text-navy">Africa Diaspora Legal Hub</span>
+            <Image src="/logo.jpg" alt="Logo" width={64} height={64} className="rounded-full object-cover shadow-sm" priority />
           </Link>
         </div>
 
