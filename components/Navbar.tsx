@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Zap, Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
@@ -17,10 +18,8 @@ export default function Navbar() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 z-50">
           <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
-            <div className="flex h-8 w-8 items-center justify-center rounded bg-navy text-white">
-              <Zap className="h-5 w-5 fill-current text-gold" />
-            </div>
-            <span className="text-xl font-bold text-navy">Untitled UI</span>
+            <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="rounded-full object-cover" />
+            <span className="text-xl font-bold text-navy">Africa Diaspora Legal Hub</span>
           </Link>
         </div>
 
