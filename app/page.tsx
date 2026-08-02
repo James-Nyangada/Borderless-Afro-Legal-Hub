@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, ArrowRight, Hexagon, Zap } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp, Building2, Globe, Scale, Lightbulb, Mail, ArrowUpRight } from "lucide-react";
 import BlogCard from "@/components/BlogCard";
 import Footer from "@/components/Footer";
 import LandingHero from "@/components/LandingHero";
@@ -20,34 +20,150 @@ async function getPosts() {
 export default async function BlogHome() {
   const fetchedPosts = await getPosts();
   const displayPosts = fetchedPosts || posts.slice(0, 12);
+  
+  const editorsPicks = displayPosts.slice(0, 3);
+  const recentPosts = displayPosts.slice(3, 9); // Limit recent to 6 for cleaner layout
+
+  const categories = [
+    { name: "Real Estate", icon: Building2, href: "/categories?tag=Real Estate" },
+    { name: "Capital Markets", icon: TrendingUp, href: "/categories?tag=Capital Markets" },
+    { name: "FDI & ESG", icon: Globe, href: "/categories?tag=FDI & ESG" },
+    { name: "Startup Law", icon: Lightbulb, href: "/categories?tag=Startup Law" },
+    { name: "Corporate Governance", icon: Scale, href: "/categories?tag=Corporate Governance" },
+  ];
 
   return (
     <div className="min-h-screen bg-white text-navy font-sans selection:bg-cream selection:text-navy">
-      {/* Navigation */}
-      
-
       <main>
         {/* Hero Section */}
         <LandingHero />
 
-        {/* Recent Posts Section */}
-        <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
-          <h2 className="mb-10 text-3xl font-bold text-navy">
-            Recent blog posts
-          </h2>
-
-          <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
-            {displayPosts.map((post: any, idx: number) => (
-              <BlogCard key={idx} post={post} />
-            ))}
-          </div>
-
-          <div className="mt-16 flex justify-center">
-            <button className="rounded-lg bg-navy px-6 py-3 text-base font-medium text-white hover:bg-navy-2 focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2 transition-colors shadow-sm">
-              Load More...
-            </button>
+        {/* Trust Strip */}
+        <section className="border-b border-gray-100 bg-gray-50/50 py-4">
+          <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-center gap-6 text-sm font-medium text-navy/70">
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-gold" />
+              <span>Insights by Ian Mathenge, Advocate of the High Court of Kenya</span>
+            </div>
+            <span className="hidden sm:block text-gray-300">•</span>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-gold" />
+              <span>Navigating Cross-Border Legal Complexity</span>
+            </div>
+            <span className="hidden sm:block text-gray-300">•</span>
+            <div className="flex items-center gap-2">
+              <CheckCircle2 className="h-4 w-4 text-gold" />
+              <span>Trusted by Founders & Investors</span>
+            </div>
           </div>
         </section>
+
+        {/* Browse by Category */}
+        <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+          <h2 className="mb-8 text-2xl font-bold text-navy text-center sm:text-left">
+            Explore Topics
+          </h2>
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+            {categories.map((cat, idx) => (
+              <Link key={idx} href={cat.href} className="flex flex-col items-center justify-center p-6 bg-white border border-gray-100 rounded-2xl hover:border-gold hover:shadow-md transition-all group">
+                <div className="h-12 w-12 rounded-full bg-navy/5 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-colors">
+                  <cat.icon className="h-6 w-6 text-navy group-hover:text-gold transition-colors" />
+                </div>
+                <span className="text-sm font-semibold text-navy text-center">{cat.name}</span>
+              </Link>
+            ))}
+          </div>
+        </section>
+
+        {/* Editor's Picks */}
+        {editorsPicks.length > 0 && (
+          <section className="bg-navy py-16">
+            <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div className="flex items-center justify-between mb-10">
+                <h2 className="text-3xl font-bold text-white">
+                  Editor's Picks
+                </h2>
+                <Link href="/blogs" className="hidden sm:flex items-center gap-2 text-gold hover:text-white transition-colors text-sm font-medium">
+                  View all articles <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+              <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+                {editorsPicks.map((post: any, idx: number) => (
+                  <div key={idx} className="bg-white rounded-2xl p-4 transition-transform hover:-translate-y-1">
+                    <BlogCard post={post} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
+
+        {/* Inline Subscribe */}
+        <section className="bg-gold py-12 border-y border-navy/10">
+          <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
+            <h3 className="text-2xl font-bold text-navy mb-4">Stay ahead of Africa's evolving legal landscape</h3>
+            <p className="text-navy/80 mb-6">Get premium regulatory insights and cross-border analysis delivered directly to your inbox.</p>
+            <form className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto" >
+              <div className="relative w-full">
+                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-navy/50" />
+                <input 
+                  type="email" 
+                  placeholder="Enter your email address" 
+                  required
+                  className="w-full rounded-lg border border-transparent bg-white pl-10 pr-4 py-3 text-sm text-navy placeholder-navy/50 focus:outline-none focus:ring-2 focus:ring-navy transition-all shadow-sm"
+                />
+              </div>
+              <button 
+                type="submit"
+                className="w-full sm:w-auto rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white hover:bg-navy-2 focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2 focus:ring-offset-gold transition-colors shadow-sm whitespace-nowrap"
+              >
+                Join Newsletter
+              </button>
+            </form>
+          </div>
+        </section>
+
+        {/* Recent Posts Section */}
+        {recentPosts.length > 0 && (
+          <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+            <h2 className="mb-10 text-3xl font-bold text-navy">
+              Latest Insights
+            </h2>
+            <div className="grid grid-cols-1 gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-3">
+              {recentPosts.map((post: any, idx: number) => (
+                <BlogCard key={idx} post={post} />
+              ))}
+            </div>
+            
+            <div className="mt-16 flex justify-center">
+              <Link href="/blogs" className="rounded-lg bg-navy/5 px-6 py-3 text-base font-semibold text-navy hover:bg-navy/10 focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2 transition-colors">
+                View All Articles
+              </Link>
+            </div>
+          </section>
+        )}
+
+        {/* About Author Teaser */}
+        <section className="mx-auto max-w-4xl px-4 py-16 sm:px-6 lg:px-8 mb-12">
+          <div className="bg-cream rounded-3xl p-8 sm:p-12 flex flex-col md:flex-row items-center gap-8 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-64 h-64 bg-gold/10 rounded-full blur-3xl -mr-20 -mt-20"></div>
+            
+            <div className="relative h-32 w-32 shrink-0 rounded-full overflow-hidden border-4 border-white shadow-lg bg-navy flex items-center justify-center">
+              <Image src="/logo.jpg" alt="Ian Mathenge" fill className="object-cover" />
+            </div>
+            
+            <div className="relative z-10 text-center md:text-left">
+              <h2 className="text-2xl font-bold text-navy mb-2">About the Author</h2>
+              <p className="text-navy/70 leading-relaxed mb-6">
+                Insights and analysis curated by Ian Mathenge, Advocate of the High Court of Kenya. Bridging the gap between complex cross-border regulations and actionable business strategy for investors in Africa.
+              </p>
+              <Link href="/about" className="inline-flex items-center gap-2 font-semibold text-navy hover:text-gold transition-colors">
+                Read full bio <ArrowUpRight className="h-4 w-4" />
+              </Link>
+            </div>
+          </div>
+        </section>
+
       </main>
 
       <Footer />
@@ -62,10 +178,9 @@ const posts = [
       "Linear helps streamline software projects, sprints, tasks, and bug tracking. Here's how to get started.",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuAEiA4lwMPpHdffSlgq658uiqw2FkYiFMAOeXgDbwKDjFCHxSW0J0AdLzrZStZ9ITw6KgEBsw24QMnUlPGlmaiKX3HMlXfB1R_kGqE7RKeTWSYUsTfhavBACkSdx2UwKcUaw4IuYLubmHeHyCfMzBadZSr3xXoTAvf9GRWPMPj9MCwlkm0p0bKACgV7y2URq9DxtsjWB_iN2fOxBMSsAEZTESLU0WCtPqjQS2PiqN_kppn06x9eMGsd",
+    category: "Capital Markets",
     author: {
       name: "Jonathan Wills",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuDb1_5WrdiEpyo-2lR6hb0dGxlkvX39QU1T4hp82xiY8D67H8TuTHcjo2BduxlJi_4BxpZpSqpYaHFwBLGVYVwmmjmvnZ2c0UsWVQ1GVURb5Jcm1CNuOhxGhZok2RiaI4-9409Y39SCZGo3Cb4Awvp-LS9UugIFpPc8d32V97tx2-IzC0D83xBLvskWKuJHoiwaUbDq_IwM6hsDx6DR8JAu3RJQPPLOTC0csGY-1xdJS6wDF-qyJYUR",
     },
     date: "19 Jan 2022",
   },
@@ -75,25 +190,23 @@ const posts = [
       "The rise of RESTful APIs has been met by a rise in tools for creating, testing, and managing them.",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCCsOsqi4lILyEZk5yeySEGYCfibBL39r6EiLRLU7NVLq1ysvPx0pB6Ryb-xjZ3l0kb3cepgiqtRzDVQaL_YhnLxuFRg3YPGoXQJX2lXXa6mE0DbLt-DqkFw4ZFmNvbivSslmAUS7jZM5Igk496edxvO0HPQFuObhe_wBN1VPSsmCNIm0GMOTKIzsKDiBR69Md1uTINkNmqldffk9_z4RzhJ0JmZvo--UPg8UCWheiZE268ba2L0uY3",
+    category: "Corporate Governance",
     author: {
       name: "Lana Steiner",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuA9z9MwP4TUIfSBDS61J5yEWiYfqWhjT2IQzxJ8ESrzT4j0beCe-zjRdcdsiGCDVxdHOHyEaGE0SOnCoyFRCFdgux-aFTiV65iW8048CFDuyAPJoevnYqbyyHFxRWtpCgusyxhzFCcB-47JS_9iAKG8UDS5ynNZUxWbTTbEcHZ21A9HKw10Ij7-yaB92l8Vqg41YJZp5XN3sDZ9o7DUsG5oy4Y1OU-I_qXJFarUOSq7ecHsm5xikSAs",
     },
     date: "18 Jan 2022",
   },
   {
-    title: "Bill Walsh leadership lessons",
+    title: "Structuring Cross-Border Property Deals",
     excerpt:
-      "Like to know the secrets of transforming a 2-14 team into a 3x Super Bowl winning Dynasty?",
+      "How to effectively manage real estate investments across different African jurisdictions while mitigating regulatory risk.",
     image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAwupKyhOReD7bj6b5Blz0wA1sqpLx1GqoDolW2XTGsJecl6Mh_wLTB1Y8lfoLZDUKRu3QHiBr16hl5PhPwnQlOxpdcNx5X8eb_C-59oP3YLLgxhA2skvCjuGT3zgK6EaZsvOHNkEpCVPLOfvVmqp91A7lCedyCosTh_BXuMBFQoJA6WQbYNq6_mE1CwgHFiTTh-mhdDTawA6rg1efihnCV3BMp8WF9qUgTyrzciGivU1S-Od0xcGBh",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop",
+    category: "Real Estate",
     author: {
-      name: "Eve Wilkins",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuAX2g3Q__7ucX2JWHKDVPRderbIe7MzJzWMQSi_Mj-GwQIRIi-JhpDV9E9uc5QgWBBoaQL1V_JkerpWgqgNrNvX8T42QL0hzoC6qrVSISa7R4ix82PCoZIQ26W0LTETIwARDDoRZn8GFVELp21Qa1-KcBLgdRkdeD0NDWccrENeMsb1QyYCM0x8dNczpn1Y4c_SSZ1ba2rauxkq6JwbLM3Hb_poAxEzwD3hlY2S33fcs1d4yp17g_Fe",
+      name: "Ian Mathenge",
     },
-    date: "18 Jan 2022",
+    date: "24 Feb 2023",
   },
   {
     title: "PM mental models",
@@ -101,10 +214,9 @@ const posts = [
       "Mental models are simple expressions of complex processes or relationships.",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuCpHuXyBzMYFv_Om5d5i8Hxv_tFU8xsl7A3odbM6r8fcDHClIRuHC1J4HX-xZkglJOV-V9RshpydsZzIRc4EoQBi1q1GXLqAkEE90lutlMnaN6l_qJ5IusXC-EtFT6k7DVW-Ck6sSweQ1voJPEXxK02iFtfJrdLpJAM12TfqpOq9XXTZ_vUwGh7UYze4dofCb7GPDz70n5DVNZzP94_PvoFbpbFsLBjUIiYg46OrVOhWAfQbYMPA3Cv",
+    category: "Startup Law",
     author: {
       name: "Eve Wilkins",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuCwfG5lceh-PTn8Sqsg7Wms4Tu_bH84baPoyhsd14vcapsvKxf8TISJPM6Fu1mhpkcr4g5U7e51F_eY0jgE3YqOalrFvuKw8j8__gMUOgYKC9-UhuKIHGZTTVkz7k2z26MXUdGxqsPJVGfFHiJfzHzft5ifwBHBFzS90pk8lKnzoK5lH1pGdmaV7uk5tqy5Aw3fzsdQ5y1RhHC8FXzEieKFXFnLxsvdBmo6gRuUDklj1J_tQe0zF2As",
     },
     date: "18 Jan 2022",
   },
@@ -114,10 +226,9 @@ const posts = [
       "Introduction to Wireframing and its Principles. Learn from the best in the industry.",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuDHNuEzfaRVhfeyDi3f-ijXi202JXWzQ-S1K6IObukPIBBNfhANVWNi8-g6gWlls3PvlCiWSRFdngwPm27aDflDInsqjC-cmnsETPoLx0DEep8su5XycNPNCqBMVJOp61EdXEGbBTW-tAuSVy5vrk51eglPLupa9gB9GgT4vp5Hw8BMDUHUvG0OtC_Ho2KlOF3NLkGWNP4jbV2MlbuvgtgwMWl5VsemNS4HCWUQiymDaWd-jswZSZcx",
+    category: "FDI & ESG",
     author: {
       name: "Lana Steiner",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuAkmZtIsVZuPp_SOi_ofjW5O0PeWgIIvfx7GyaZ4w9nIRCE9Ss9I9chAHGRA_t8UxtM47VNVprDn87uzQIa6Bze6IIR-9W2iUff5-tyN4d7DsqSyEPFYhgPI4MsyZqVNeFGM1OJ92eZoaBl1t5FmjX_9JTKr_0xqit98wG-g8zInoBEy-u3xRB4JhwSHc3xeaCzlMY114efa7rPuw8S1wRjl3Y7fQp_aVmdTCbDiKxGv-JTq2Rfr2j2",
     },
     date: "18 Jan 2022",
   },
@@ -127,36 +238,9 @@ const posts = [
       "Collaboration can make our teams stronger, and our individual designs better.",
     image:
       "https://lh3.googleusercontent.com/aida-public/AB6AXuC-tZ7_ygVYU98la5s-Pl-Q4Urqpir8eOovx6KDyMj67Umne4apbRd5e73af6tukSgP_xp5b32ftdL4FRHfRcCDaIb4eBmyCMPpCjOIl1IxzQ4bvwnbE-qFGggxMUJNyaLM2tTQaMeivkB0K7F3AIluHnvqEPVXYTg1k--XkE9qsP0_0qvmAx-QVYNd7NlvHl8nE2ydk3z8FTmu7_wvelh_VJfecVgLF5KKipIOLRb8MPaLKENwz_BQ",
+    category: "Corporate Governance",
     author: {
       name: "Jonathan Wills",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuDuvVO2Y5_SIy5pWEZdwDqYduDSFBFaRogxQn7RcXV0TQxQ8S2LVZdyMMY3J8NlZZvotKkO0_T0Ej1P0hRoMAvcsvVEJsr07KMRGvk-TrbYIZfXIT-di6VcCeWcZR9jllidCZWnxxuGft5vT2yIS7pSUCQHkZOmUKnqOQLuZhc6alC2fedfYukOEJDXZAcvviVgUJ-M4Lb45F_Hwr_xcbQfVGT3chUgjLpkzWQZwmRpLIS-7OD0_PwD",
-    },
-    date: "19 Jan 2022",
-  },
-  {
-    title: "Our top 10 Javascript frameworks to use",
-    excerpt:
-      "JavaScript frameworks make development easy with extensive features and functionalities.",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCKjQ9QxDVGAEDkZK8XL4OxjpzlXePIA3NDAq3L35YhNSG4U1U9ZTctEsJlnZsw3GX8NMdOmhFRU9Y3Bs4FjuJ0dexT78qcKG_K9lmxrS5e7HGkGDSfQboCpg9-2Tt9QiQAD6PlJU2qqA0VR8KCavofed_DJfgZ6LIlFP7hnhOnBFQuvmac5GufAKtFLIaf6GLSWdnwq3nTnV2eVUC5ycVUWlNaqg5jhekVhyag5628QBLNBjiNWTdG",
-    author: {
-      name: "Lana Steiner",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuAW7KvJfhaeA0CUyAExZOs7mSTjtAyvIh9EPKEbqs8Z3lvW8Y9Rk-VLUkkySO7OFH2rh9LLr10uQr0WqC17wakoyCJDlkG5jDOZ6XaJC89iNABkQeg3MYE-jKZ4eHU2VbaKumQgM4pL586PzumZmDpmATZUoC4ZIIQ4xc3kKkqBycsDxjwLqwIF5qKl8TFCsFM88SwyKaUs-rm-6GG2pmErPmAs5pmrZTtbHKgn52oPiSPvryvacpSH",
-    },
-    date: "18 Jan 2022",
-  },
-  {
-    title: "Podcast: Creating a better CX Community",
-    excerpt:
-      "Starting a community doesn't need to be complicated, but how do you get started?",
-    image:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDMb83YQiaxUKgErWLlKdg2DP4QARNZpZEbsatIYu4VbPmgY3WAuTBdK5BJN54rTebbm9RppfaD6f3mI6ZTBX91YcX-6LzQM1znFL1-lSC2Ehpk38PZ5fJcQ64oKBWbLFU0UnnGodqG4jjHA7x2vQ4go4g9rkxgCFa2kcyDswAc4McYFA9l2xBoCjzsZaTtwYk8uT-Cw5hAC69Nc8RBZGhJvtbUm7tgB8LrhTkBdS1f3577TT8K9h9s",
-    author: {
-      name: "Jonathan Wills",
-      image:
-        "https://lh3.googleusercontent.com/aida-public/AB6AXuD9RHOe-ztDfaZUTIWMNAiO90pA4MnQn0ambUMTbNUaO1QcdvmlWoSXdY51oO5pQb-UFyW2wZ_Jje_H-TRgAlcCnx9ILXoRuqM1tbpk1-CPYled3nQ6Z_Y2I5Kmh1BAwvPXuCvd9C4W0JNIRF5unZKgFGOYTJg_NkQLCZW4-VciJmbKV1s-1d3ir2uoL1sEdTof7N8K6fNcTC_1JeUYfZ1z8vgBi83G8z16UqeOBEYJl7SD2gu419Ui",
     },
     date: "19 Jan 2022",
   },

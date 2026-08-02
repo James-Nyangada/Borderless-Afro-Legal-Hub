@@ -13,6 +13,8 @@ interface Post {
   createdAt?: string;
   publishDate?: string;
   featuredImages?: string[];
+  category?: any;
+  tags?: string[];
   // For fallback hardcoded posts
   image?: string;
   date?: string;
@@ -56,6 +58,12 @@ export default function BlogCard({ post }: BlogCardProps) {
   // Slug for linking
   const slug = post.slug || post.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
 
+  const categoryName = typeof post.category === 'object' && post.category?.name 
+    ? post.category.name 
+    : typeof post.category === 'string' 
+      ? post.category 
+      : post.tags && post.tags.length > 0 ? post.tags[0] : null;
+
   return (
     <Link href={`/blog/${slug}`} className="group flex flex-col items-start justify-between cursor-pointer w-full h-full">
       <article className="flex flex-col w-full h-full">
@@ -81,6 +89,11 @@ export default function BlogCard({ post }: BlogCardProps) {
         </div>
         
         <div className="mt-6 flex flex-col flex-1 w-full">
+          {categoryName && (
+            <span className="mb-3 inline-flex items-center rounded-full bg-navy/10 px-3 py-1 text-xs font-medium text-navy w-fit">
+              {categoryName}
+            </span>
+          )}
           <h3 className="text-xl font-bold leading-6 text-navy transition-colors group-hover:text-navy-2 line-clamp-2">
             {post.title}
           </h3>

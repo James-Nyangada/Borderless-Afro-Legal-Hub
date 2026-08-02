@@ -17,23 +17,21 @@ export default function Navbar() {
     <header className="border-b border-gray-100 bg-white sticky top-0 z-50">
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 z-50 py-2">
-          <Link href="/" className="flex items-center gap-2" onClick={closeMenu}>
-            <Image src="/logo.jpg" alt="Logo" width={64} height={64} className="rounded-full object-cover shadow-sm" priority />
+          <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
+            <Image src="/logo.jpg" alt="Logo" width={48} height={48} className="rounded-full object-cover shadow-sm" priority />
+            <span className="text-xl font-bold text-navy hidden sm:block">Borderless Afro Legal Hub</span>
           </Link>
         </div>
 
         <nav className="hidden lg:flex items-center gap-6 text-base font-medium text-[#475467]">
           <Link href="/" className="hover:text-[#101828] transition-colors">Home</Link>
           <Link href="/categories" className="hover:text-[#101828] transition-colors">Categories</Link>
-          <Link href="/media" className="hover:text-[#101828] transition-colors">Media & Gallery</Link>
           <Link href="/blogs" className="hover:text-[#101828] transition-colors">Blog</Link>
           <Link href="/about" className="hover:text-[#101828] transition-colors">About us</Link>
           <Link href="/contact" className="hover:text-[#101828] transition-colors">Contact</Link>
         </nav>
 
-        <div className="hidden md:flex items-center gap-4">
-          <a href={process.env.NEXT_PUBLIC_DASHBOARD_URL || 'https://dashboard.borderlessafrolegalhub.com/'} className="text-base font-medium text-navy/70 hover:text-navy transition-colors">Log in</a>
-        </div>
+
 
         <button 
           className="lg:hidden text-navy/70 hover:text-navy transition-colors z-50"
@@ -58,20 +56,12 @@ export default function Navbar() {
         <nav className="flex flex-col gap-6 text-lg font-medium text-[#475467]">
           <Link href="/" className="hover:text-[#101828] transition-colors" onClick={closeMenu}>Home</Link>
           <Link href="/categories" className="hover:text-[#101828] transition-colors" onClick={closeMenu}>Categories</Link>
-          <Link href="/media" className="hover:text-[#101828] transition-colors" onClick={closeMenu}>Media & Gallery</Link>
           <Link href="/blogs" className="hover:text-[#101828] transition-colors" onClick={closeMenu}>Blog</Link>
           <Link href="/about" className="hover:text-[#101828] transition-colors" onClick={closeMenu}>About us</Link>
           <Link href="/contact" className="hover:text-[#101828] transition-colors" onClick={closeMenu}>Contact</Link>
         </nav>
         
-        <div className="mt-auto pb-10 flex flex-col gap-4">
-          <a 
-            href={process.env.NEXT_PUBLIC_DASHBOARD_URL || 'https://dashboard.borderlessafrolegalhub.com/'} 
-            className="rounded-lg bg-navy px-4 py-3 text-center text-base font-medium text-white hover:bg-navy-2 transition-colors"
-          >
-            Log in
-          </a>
-        </div>
+
       </div>
     </header>
   );

@@ -22,7 +22,11 @@ export default async function Footer() {
   } catch (err) {
     console.error("Failed to fetch contact data for footer", err);
   }
-  const socialLinks = contactData?.socialLinks || [];
+  const socialLinks = [...(contactData?.socialLinks || [])].sort((a: any, b: any) => {
+    if (a.platform.toLowerCase().includes('linkedin')) return -1;
+    if (b.platform.toLowerCase().includes('linkedin')) return 1;
+    return 0;
+  });
 
   return (
     <div className="bg-charcoal pt-20 rounded-t-[40px] px-4 sm:px-6 lg:px-8 text-white">
@@ -55,10 +59,10 @@ export default async function Footer() {
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-6">
               <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="rounded-full object-cover" />
-              <span className="text-xl font-bold text-white">Africa Diaspora Legal Hub</span>
+              <span className="text-xl font-bold text-white">Borderless Afro Legal Hub</span>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
-              Empowering teams to build better products together. We are building the infrastructure for the next generation of digital experiences.
+              Providing premier insights, deep regulatory analysis, and actionable intelligence for founders and institutional investors navigating Africa's cross-border legal landscape.
             </p>
             {/* Minimal Social Icons Row below excerpt */}
             {socialLinks.length > 0 && (
@@ -78,7 +82,6 @@ export default async function Footer() {
             <ul className="space-y-4 text-sm">
               <li><Link href="/" className="text-white/70 hover:text-gold transition-colors">Home</Link></li>
               <li><Link href="/categories" className="text-white/70 hover:text-gold transition-colors">Categories</Link></li>
-              <li><Link href="/media" className="text-white/70 hover:text-gold transition-colors">Media & Gallery</Link></li>
             </ul>
           </div>
           <div>
@@ -103,7 +106,7 @@ export default async function Footer() {
 
         <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10 pt-8">
           <p className="text-sm text-white/50">
-            © {new Date().getFullYear()} Untitled UI. All rights reserved.
+            © {new Date().getFullYear()} Borderless Afro Legal Hub. All rights reserved.
           </p>
           <div className="flex items-center gap-6 text-sm">
             <Link href="/privacy" className="text-white/50 hover:text-white transition-colors">Privacy Policy</Link>

@@ -59,11 +59,11 @@ export default function LandingHero() {
             Featured
           </span>
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-white">
-            Transforming Legal Practices: <br />
-            The Future of African Law
+            Insights for Investors and Founders <br />
+            Navigating Africa's Legal Landscape
           </h1>
           <p className="mt-2 max-w-2xl text-lg text-gray-200 sm:text-xl">
-            Discover a comprehensive ecosystem tailored for legal professionals across the continent. Empowering collaboration, innovation, and unprecedented growth.
+            Providing premier cross-border intelligence, deep regulatory analysis, and actionable insights to empower your legal and business strategies across the continent.
           </p>
         </div>
 
