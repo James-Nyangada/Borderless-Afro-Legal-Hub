@@ -1,14 +1,16 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, Zap, PenTool, Ruler, Search } from "lucide-react";
+import { Building2, BarChart3, Globe2, Code, Handshake, Zap, ArrowRight, BookOpen } from "lucide-react";
+import Footer from "@/components/Footer";
+import InlineSubscribeCard from "@/components/InlineSubscribeCard";
+import { fetchAPI } from "@/lib/api";
 
 export const metadata = {
-  title: "Services - Untitled UI",
-  description: "Design-led solutions for modern teams.",
+  title: "Categories - Borderless Afro Legal Hub",
+  description: "Browse our articles and insights by category for founders, investors, and legal professionals.",
 };
 
 export const revalidate = 60;
-import { fetchAPI } from "@/lib/api";
 
 type Category = {
   _id: string;
@@ -29,48 +31,123 @@ async function getCategories() {
   }
 }
 
+async function getPosts() {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000/api/v1'}/posts`, { next: { revalidate: 60 } });
+    if (!res.ok) throw new Error('Failed to fetch posts');
+    const data = await res.json();
+    return data.data?.posts || [];
+  } catch (error) {
+    console.error('Error fetching posts:', error);
+    return [];
+  }
+}
+
+const CATEGORY_STYLES: Record<string, { icon: any, bgColor: string, iconColor: string, btnStyle: string }> = {
+  'real-estate': { icon: Building2, bgColor: 'bg-gold/10', iconColor: 'text-gold', btnStyle: 'border-gold text-gold hover:bg-gold hover:text-white' },
+  'capital-markets': { icon: BarChart3, bgColor: 'bg-navy/10', iconColor: 'text-navy', btnStyle: 'border-navy text-navy hover:bg-navy hover:text-white' },
+  'fdi-esg': { icon: Globe2, bgColor: 'bg-emerald-50', iconColor: 'text-emerald-700', btnStyle: 'border-emerald-200 text-emerald-700 hover:bg-emerald-50 hover:border-emerald-300' },
+  'startup-law': { icon: Code, bgColor: 'bg-blue-50', iconColor: 'text-blue-700', btnStyle: 'border-blue-200 text-blue-700 hover:bg-blue-50 hover:border-blue-300' },
+  'corporate-governance': { icon: Handshake, bgColor: 'bg-purple-50', iconColor: 'text-purple-700', btnStyle: 'border-purple-200 text-purple-700 hover:bg-purple-50 hover:border-purple-300' },
+};
+const DEFAULT_STYLE = { icon: BookOpen, bgColor: 'bg-cream', iconColor: 'text-navy', btnStyle: 'border-navy/20 text-navy hover:bg-cream hover:border-navy/30' };
+
 export default async function CategoriesPage() {
-  const categories = await getCategories();
+  const [categories, posts] = await Promise.all([getCategories(), getPosts()]);
+
+  // Map category data
+  const categoryData = categories.map((cat) => {
+    const catPosts = posts.filter((p: any) => p.categories?.[0]?.slug === cat.slug);
+    // Sort by createdAt for latest
+    catPosts.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime());
+    
+    return {
+      ...cat,
+      articleCount: catPosts.length,
+      latestArticle: catPosts.length > 0 ? catPosts[0].title : null,
+      style: CATEGORY_STYLES[cat.slug] || DEFAULT_STYLE
+    };
+  });
+
+  // Sort categories by article count to give visual hierarchy
+  const maxArticles = Math.max(...categoryData.map(c => c.articleCount), 0);
 
   return (
-    <div className="min-h-screen bg-white text-navy font-sans selection:bg-cream selection:text-navy">
-      {/* Navigation */}
-      
-
-      <main className="bg-[#f9fafb] pb-24">
+    <div className="min-h-screen bg-white text-navy font-sans selection:bg-cream selection:text-navy flex flex-col justify-between">
+      <main className="pb-24 pt-8">
         {/* Header Section */}
-        <section className="px-4 py-20 text-center max-w-4xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-[#f4ebff] text-[#7f56d9] rounded-full text-sm font-semibold mb-8 border border-[#7f56d9]/10">
+        <section className="px-4 py-16 text-center max-w-4xl mx-auto">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-gold/10 text-gold-dark rounded-full text-sm font-semibold mb-8 border border-gold/20">
             <Zap className="w-4 h-4 fill-current" />
             Explore Topics
           </div>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[#101828] mb-6 tracking-tight">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-navy mb-6 tracking-tight">
             Categories
           </h1>
-          <p className="text-xl text-[#475467] leading-relaxed max-w-2xl mx-auto">
-            Browse our articles and insights by category. Find exactly what you're looking for.
+          <p className="text-xl text-navy/70 leading-relaxed max-w-2xl mx-auto mb-8">
+            Browse our articles and insights by category for founders, investors, and legal professionals.
           </p>
+          <Link href="/blogs" className="inline-flex items-center gap-2 text-gold font-semibold hover:text-gold-dark transition-colors border-b-2 border-gold/30 hover:border-gold pb-1">
+            Not sure where to start? Browse everything <ArrowRight className="w-4 h-4" />
+          </Link>
         </section>
 
         {/* Categories Cards */}
         <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {categories.length > 0 ? categories.map((category) => (
-              <div key={category._id || category.slug} className="flex flex-col bg-white rounded-2xl p-8 shadow-sm border border-gray-100 hover:shadow-md transition-shadow group">
-                <div className="w-12 h-12 bg-[#f4ebff] text-[#7f56d9] rounded-full flex items-center justify-center mb-6">
-                  {/* We use a fallback icon if dynamic icon parsing isn't easy without a library */}
-                  <PenTool className="w-5 h-5" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 items-stretch">
+            {categoryData.length > 0 ? (
+              <>
+                {categoryData.map((category) => {
+                  const Icon = category.style.icon;
+                  const isMostActive = category.articleCount > 0 && category.articleCount === maxArticles;
+                  
+                  return (
+                    <div key={category._id || category.slug} className={`flex flex-col bg-white rounded-2xl p-8 shadow-sm border border-navy/10 hover:shadow-md transition-all duration-300 group relative overflow-hidden ${isMostActive ? 'ring-2 ring-gold/20 shadow-lg scale-[1.02]' : ''}`}>
+                      {/* Duotone Header / Icon treatment */}
+                      <div className={`w-14 h-14 ${category.style.bgColor} ${category.style.iconColor} rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110`}>
+                        <Icon className="w-7 h-7" />
+                      </div>
+                      
+                      {isMostActive && (
+                        <span className="absolute top-8 right-8 text-[10px] uppercase tracking-wider font-bold bg-gold/10 text-gold-dark px-2 py-1 rounded-sm border border-gold/20">
+                          Most Popular
+                        </span>
+                      )}
+
+                      <h3 className="text-2xl font-bold text-navy mb-2 group-hover:text-gold transition-colors">
+                        {category.name}
+                      </h3>
+                      
+                      <div className="text-sm font-medium text-navy/50 mb-4">
+                        {category.articleCount} {category.articleCount === 1 ? 'article' : 'articles'}
+                      </div>
+
+                      <p className="text-navy/70 leading-relaxed mb-6 flex-grow">
+                        {category.description || `Explore all articles related to ${category.name}.`}
+                      </p>
+
+                      {category.latestArticle && (
+                        <div className="mb-6 pt-6 border-t border-navy/5">
+                          <p className="text-xs font-semibold text-navy/40 uppercase tracking-wider mb-2">Latest Article</p>
+                          <p className="text-sm text-navy/80 line-clamp-2 font-medium">
+                            "{category.latestArticle}"
+                          </p>
+                        </div>
+                      )}
+
+                      <Link href={`/blogs?category=${category.slug}`} className={`inline-flex items-center justify-center px-6 py-3 rounded-lg border font-semibold transition-colors w-full mt-auto ${category.style.btnStyle}`}>
+                        View {category.name}
+                      </Link>
+                    </div>
+                  );
+                })}
+                {/* Newsletter fill in the remaining grid spot */}
+                <div className="h-full">
+                  <InlineSubscribeCard />
                 </div>
-                <h3 className="text-2xl font-bold text-[#101828] mb-4 group-hover:text-[#7f56d9] transition-colors">{category.name}</h3>
-                <p className="text-[#475467] leading-relaxed mb-8 flex-grow">
-                  {category.description || `Explore all articles related to ${category.name}.`}
-                </p>
-                <Link href={`/blogs?category=${category.slug}`} className="inline-flex items-center justify-center px-6 py-3 rounded-lg border border-gray-300 text-[#344054] font-semibold hover:bg-gray-50 hover:text-[#101828] transition-colors w-full mt-auto">
-                  View Blogs
-                </Link>
-              </div>
-            )) : (
-              <div className="col-span-full text-center py-12 text-[#475467]">
+              </>
+            ) : (
+              <div className="col-span-full text-center py-12 text-navy/70">
                 No categories found.
               </div>
             )}
@@ -78,96 +155,7 @@ export default async function CategoriesPage() {
         </section>
       </main>
 
-      {/* CTA and Footer Section (Since it already has a CTA, maybe skip the first part? The design shows the footer exactly below "Ready to build". So I'll just use the footer part) */}
-      <div className="bg-charcoal pt-16 px-4 sm:px-6 lg:px-8 text-white rounded-t-[40px]">
-        <footer className="mx-auto max-w-7xl pb-12">
-          <div className="grid grid-cols-2 gap-8 md:grid-cols-6 lg:gap-12">
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Product</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Overview</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Features</Link></li>
-                <li>
-                  <Link href="#" className="group flex items-center gap-2 text-white/70 hover:text-gold transition-colors">
-                    Solutions
-                    <span className="rounded-full bg-gold/10 px-2 py-0.5 text-xs font-medium text-gold border border-gold/20 group-hover:bg-gold/20 transition-colors">
-                      New
-                    </span>
-                  </Link>
-                </li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Tutorials</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Pricing</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Releases</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Company</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="/about" className="text-white/70 hover:text-gold transition-colors">About us</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Careers</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Press</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">News</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Media kit</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Resources</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="/blogs" className="text-white/70 hover:text-gold transition-colors">Blog</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Newsletter</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Events</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Help centre</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Tutorials</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Support</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Use cases</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Startups</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Enterprise</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Government</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">SaaS centre</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Marketplaces</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Ecommerce</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Social</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Twitter</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">LinkedIn</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Facebook</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">GitHub</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">AngelList</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Dribbble</Link></li>
-              </ul>
-            </div>
-            <div>
-              <h3 className="text-sm font-semibold text-white/50">Legal</h3>
-              <ul className="mt-6 space-y-4 text-sm">
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Terms</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Privacy</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Cookies</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Licenses</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Settings</Link></li>
-                <li><Link href="#" className="text-white/70 hover:text-gold transition-colors">Contact</Link></li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="mt-16 flex flex-col items-center justify-between gap-6 border-t border-white/10 pt-8 sm:flex-row">
-            <Link href="/" className="flex items-center gap-2">
-              <Image src="/logo.jpg" alt="Logo" width={40} height={40} className="rounded-full object-cover" />
-              <span className="text-xl font-bold text-white">Africa Diaspora Legal Hub</span>
-            </Link>
-            <p className="text-sm text-white/50">
-              © 2026 Untitled UI. All rights reserved.
-            </p>
-          </div>
-        </footer>
-      </div>
+      <Footer />
     </div>
   );
 }
