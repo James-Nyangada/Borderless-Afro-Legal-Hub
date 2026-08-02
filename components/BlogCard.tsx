@@ -14,10 +14,12 @@ interface Post {
   publishDate?: string;
   featuredImages?: string[];
   category?: any;
+  categories?: any[];
   tags?: string[];
   // For fallback hardcoded posts
   image?: string;
   date?: string;
+  content?: string;
 }
 
 interface BlogCardProps {
@@ -62,7 +64,18 @@ export default function BlogCard({ post }: BlogCardProps) {
     ? post.category.name 
     : typeof post.category === 'string' 
       ? post.category 
-      : post.tags && post.tags.length > 0 ? post.tags[0] : null;
+      : post.tags && post.tags.length > 0 ? post.tags[0] 
+      : post.categories && post.categories.length > 0 ? (typeof post.categories[0] === 'object' ? post.categories[0].name : post.categories[0]) 
+      : null;
+
+  // Calculate accurate reading time
+  const stripHtml = (html: string) => html.replace(/<[^>]*>?/gm, '');
+  const wordCount = post.content 
+    ? stripHtml(post.content).split(/\s+/).length 
+    : post.excerpt 
+      ? post.excerpt.split(/\s+/).length 
+      : 250; // Fallback to 1 min if no content
+  const readingTime = Math.max(1, Math.ceil(wordCount / 200));
 
   return (
     <Link href={`/blog/${slug}`} className="group flex flex-col items-start justify-between cursor-pointer w-full h-full">
@@ -97,26 +110,28 @@ export default function BlogCard({ post }: BlogCardProps) {
           <h3 className="text-xl font-bold leading-6 text-navy transition-colors group-hover:text-navy-2 line-clamp-2">
             {post.title}
           </h3>
-          <p className="mt-3 line-clamp-3 text-sm leading-6 text-navy/70 flex-1">
+          <p className="mt-3 line-clamp-2 text-sm leading-6 text-navy/70 flex-1">
             {post.excerpt}
           </p>
           <div className="mt-6 flex items-center gap-3">
-            {/* Profile picture commented out as requested */}
-            {/*
-            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-cream">
+            <div className="relative h-10 w-10 overflow-hidden rounded-full bg-cream shrink-0">
               <Image
-                src={typeof post.author === 'object' && post.author.image ? post.author.image : '/placeholder-avatar.png'}
+                src={typeof post.author === 'object' && post.author.image ? post.author.image : `https://ui-avatars.com/api/?name=${encodeURIComponent(authorName)}&background=random&color=fff&size=128`}
                 alt={authorName}
                 fill
                 className="object-cover"
+                unoptimized
               />
             </div>
-            */}
             <div className="text-sm font-medium leading-6">
               <span className="text-navy">{authorName}</span>
               <span className="text-navy/50 font-normal mx-1">•</span>
               <span className="text-navy/60 font-normal">
                 {dateString}
+              </span>
+              <span className="text-navy/50 font-normal mx-1">•</span>
+              <span className="text-navy/60 font-normal whitespace-nowrap">
+                {readingTime} min read
               </span>
             </div>
           </div>
