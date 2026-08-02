@@ -4,6 +4,7 @@ import { ArrowRight, CheckCircle2, TrendingUp, Building2, Globe, Scale, Lightbul
 import BlogCard from "@/components/BlogCard";
 import Footer from "@/components/Footer";
 import LandingHero from "@/components/LandingHero";
+import InlineNewsletterForm from "@/components/InlineNewsletterForm";
 
 async function getPosts() {
   try {
@@ -103,23 +104,7 @@ export default async function BlogHome() {
           <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 text-center">
             <h3 className="text-2xl font-bold text-navy mb-4">Stay ahead of Africa's evolving legal landscape</h3>
             <p className="text-navy/80 mb-6">Get premium regulatory insights and cross-border analysis delivered directly to your inbox.</p>
-            <form className="flex flex-col sm:flex-row items-center justify-center gap-3 max-w-lg mx-auto" >
-              <div className="relative w-full">
-                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-5 w-5 text-navy/50" />
-                <input 
-                  type="email" 
-                  placeholder="Enter your email address" 
-                  required
-                  className="w-full rounded-lg border border-transparent bg-white pl-10 pr-4 py-3 text-sm text-navy placeholder-navy/50 focus:outline-none focus:ring-2 focus:ring-navy transition-all shadow-sm"
-                />
-              </div>
-              <button 
-                type="submit"
-                className="w-full sm:w-auto rounded-lg bg-navy px-6 py-3 text-sm font-semibold text-white hover:bg-navy-2 focus:outline-none focus:ring-2 focus:ring-navy focus:ring-offset-2 focus:ring-offset-gold transition-colors shadow-sm whitespace-nowrap"
-              >
-                Join Newsletter
-              </button>
-            </form>
+            <InlineNewsletterForm />
           </div>
         </section>
 

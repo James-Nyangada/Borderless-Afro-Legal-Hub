@@ -18,8 +18,7 @@ export default function Navbar() {
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <div className="flex items-center gap-3 z-50 py-2">
           <Link href="/" className="flex items-center gap-3" onClick={closeMenu}>
-            <Image src="/logo.jpg" alt="Logo" width={48} height={48} className="rounded-full object-cover shadow-sm" priority />
-            <span className="text-xl font-bold text-navy hidden sm:block">Borderless Afro Legal Hub</span>
+            <Image src="/logo.jpg" alt="Logo" width={80} height={80} className="object-contain hover:scale-105 transition-transform" priority />
           </Link>
         </div>
 
