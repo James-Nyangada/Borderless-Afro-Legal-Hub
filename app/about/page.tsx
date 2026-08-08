@@ -57,7 +57,11 @@ export default async function AboutPage() {
           {values.length > 0 && (
             <section className="px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto mb-24">
               <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#101828] mb-12">Our Values</h2>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              <div className={`grid grid-cols-1 gap-8 ${
+                values.length === 1 ? 'max-w-xl mx-auto' :
+                values.length === 2 ? 'md:grid-cols-2 max-w-5xl mx-auto' :
+                'md:grid-cols-3'
+              }`}>
                 {values.map((val: any, index: number) => (
                   <div key={index} className="bg-white rounded-2xl p-8 shadow-sm border border-gray-100">
                     <div className="w-12 h-12 bg-[#f4ebff] text-[#7f56d9] rounded-full flex items-center justify-center mb-6">
