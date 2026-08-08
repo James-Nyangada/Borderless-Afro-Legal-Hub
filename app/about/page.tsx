@@ -73,35 +73,7 @@ export default async function AboutPage() {
             </section>
           )}
 
-          {/* Our Journey */}
-          <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto">
-            <div className="bg-[#f0f2f5] border border-gray-200 rounded-3xl p-10 sm:p-16">
-              <h2 className="text-3xl sm:text-4xl font-bold text-center text-[#101828] mb-16">Our Journey</h2>
-              
-              <div className="space-y-12">
-                {/* Milestone 1 */}
-                <div className="relative pl-8">
-                  <div className="absolute left-0 top-2 h-full w-[2px] bg-gray-300"></div>
-                  <div className="absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-[#7f56d9] border-[3px] border-[#f0f2f5] box-content"></div>
-                  <h3 className="text-2xl font-bold text-[#101828] mb-2">2021: The Genesis</h3>
-                  <p className="text-[#475467] text-lg">Founded in a small apartment with a singular vision to fix broken design handoffs.</p>
-                </div>
-                {/* Milestone 2 */}
-                <div className="relative pl-8">
-                  <div className="absolute left-0 top-2 h-full w-[2px] bg-gray-300"></div>
-                  <div className="absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-[#7f56d9] border-[3px] border-[#f0f2f5] box-content"></div>
-                  <h3 className="text-2xl font-bold text-[#101828] mb-2">2022: Seed Round & V1</h3>
-                  <p className="text-[#475467] text-lg">Secured $2M in seed funding and successfully launched our first public beta to 1,000 teams.</p>
-                </div>
-                {/* Milestone 3 */}
-                <div className="relative pl-8">
-                  <div className="absolute left-[-5px] top-2 h-3 w-3 rounded-full bg-[#7f56d9] border-[3px] border-[#f0f2f5] box-content"></div>
-                  <h3 className="text-2xl font-bold text-[#101828] mb-2">2024: Scaling Up</h3>
-                  <p className="text-[#475467] text-lg">Reached 50,000 active users, expanded our team to 40 talented individuals, and introduced advanced AI workflows.</p>
-                </div>
-              </div>
-            </div>
-          </section>
+
         </div>
 
         {/* About the Founder */}
