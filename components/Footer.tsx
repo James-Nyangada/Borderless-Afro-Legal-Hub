@@ -62,7 +62,7 @@ export default async function Footer() {
               <span className="text-xl font-bold text-white">Borderless Afro Legal Hub</span>
             </Link>
             <p className="text-white/70 text-sm leading-relaxed mb-6">
-              Providing premier insights, deep regulatory analysis, and actionable intelligence for founders and institutional investors navigating Africa's cross-border legal landscape.
+              For the global African diaspora deploying capital and building back home; institutional investors and fund managers allocating to African markets; and multi-jurisdictional entrepreneurs establishing or expanding across the continent.
             </p>
             {/* Minimal Social Icons Row below excerpt */}
             {socialLinks.length > 0 && (
@@ -104,10 +104,17 @@ export default async function Footer() {
           </div>
         </div>
 
-        <div className="mt-16 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-white/10 pt-8">
-          <p className="text-sm text-white/50">
-            © {new Date().getFullYear()} Borderless Afro Legal Hub. All rights reserved.
-          </p>
+        <div className="mt-16 pt-8 border-t border-white/10">
+          <div className="mb-8">
+            <h4 className="text-sm font-semibold text-white/70 mb-2">Editorial Notice</h4>
+            <p className="text-xs text-white/50 leading-relaxed max-w-4xl">
+              Borderless Legal Hub is an independent publication. The views expressed are personal and do not represent those of any employer, client, or organisation. All content is analytical commentary provided for general information only; it does not constitute legal advice and does not create a lawyer–client relationship. Readers should seek qualified professional advice on their specific circumstances.
+            </p>
+          </div>
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
+            <p className="text-sm text-white/50">
+              © {new Date().getFullYear()} Borderless Legal Hub. All rights reserved.
+            </p>
           <div className="flex items-center gap-6 text-sm">
             <Link href="/privacy" className="text-white/50 hover:text-white transition-colors">Privacy Policy</Link>
             

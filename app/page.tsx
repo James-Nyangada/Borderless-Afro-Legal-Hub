@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, CheckCircle2, TrendingUp, Building2, Globe, Scale, Lightbulb, Mail, ArrowUpRight } from "lucide-react";
+import { ArrowRight, CheckCircle2, TrendingUp, Building2, Globe, Scale, Lightbulb, Mail, ArrowUpRight, Zap } from "lucide-react";
 import BlogCard from "@/components/BlogCard";
 import Footer from "@/components/Footer";
 import LandingHero from "@/components/LandingHero";
@@ -26,11 +26,14 @@ export default async function BlogHome() {
   const recentPosts = displayPosts.slice(3, 9); // Limit recent to 6 for cleaner layout
 
   const categories = [
-    { name: "Real Estate", icon: Building2, href: "/categories?tag=Real Estate" },
-    { name: "Capital Markets", icon: TrendingUp, href: "/categories?tag=Capital Markets" },
-    { name: "FDI & ESG", icon: Globe, href: "/categories?tag=FDI & ESG" },
-    { name: "Startup Law", icon: Lightbulb, href: "/categories?tag=Startup Law" },
-    { name: "Corporate Governance", icon: Scale, href: "/categories?tag=Corporate Governance" },
+    { name: "Cross-Border Capital & FDI", desc: "Investment routes, treaty protections, capital controls, and due-diligence for inbound capital.", icon: Globe, href: "/categories?tag=Cross-Border Capital %26 FDI" },
+    { name: "Setting Up a Business in Africa", desc: "Jurisdiction choice, incorporating, holding-company structuring, and local-presence rules.", icon: Building2, href: "/categories?tag=Setting Up a Business in Africa" },
+    { name: "Relocation & Establishment", desc: "Redomiciliation, residency, and what founders should know before relocating.", icon: ArrowUpRight, href: "/categories?tag=Relocation %26 Establishment" },
+    { name: "The Europe–Africa Corridor", desc: "EU–Africa regulatory interface, supply-chain rules, and cross-border corridors.", icon: Scale, href: "/categories?tag=The Europe-Africa Corridor" },
+    { name: "Capital Markets & Sustainable Finance", desc: "Raising debt/equity, listings, ESG instruments, and development-finance.", icon: TrendingUp, href: "/categories?tag=Capital Markets %26 Sustainable Finance" },
+    { name: "Funds & Private Capital", desc: "Private equity, fund formation, diaspora vehicles, and catalytic finance.", icon: Lightbulb, href: "/categories?tag=Funds %26 Private Capital" },
+    { name: "Infrastructure, Energy & Projects", desc: "Project finance, energy transition, and managing regulatory and political risk.", icon: Zap, href: "/categories?tag=Infrastructure, Energy %26 Projects" },
+    { name: "Governance, Regulation & AfCFTA", desc: "Corporate governance, AfCFTA harmonisation, and cross-border enforcement.", icon: Scale, href: "/categories?tag=Governance, Regulation %26 AfCFTA" },
   ];
 
   return (
@@ -61,16 +64,17 @@ export default async function BlogHome() {
 
         {/* Browse by Category */}
         <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
-          <h2 className="mb-8 text-2xl font-bold text-navy text-center sm:text-left">
-            Explore Topics
+          <h2 className="mb-8 text-3xl font-bold text-navy text-center sm:text-left">
+            What We Cover
           </h2>
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {categories.map((cat, idx) => (
-              <Link key={idx} href={cat.href} className="flex flex-col items-center justify-center p-6 bg-white border border-gray-100 rounded-2xl hover:border-gold hover:shadow-md transition-all group">
-                <div className="h-12 w-12 rounded-full bg-navy/5 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-colors">
+              <Link key={idx} href={cat.href} className="flex flex-col p-6 bg-white border border-gray-100 rounded-2xl hover:border-gold hover:shadow-md transition-all group items-start text-left">
+                <div className="h-12 w-12 rounded-full bg-navy/5 flex items-center justify-center mb-4 group-hover:bg-gold/10 transition-colors shrink-0">
                   <cat.icon className="h-6 w-6 text-navy group-hover:text-gold transition-colors" />
                 </div>
-                <span className="text-sm font-semibold text-navy text-center">{cat.name}</span>
+                <h3 className="text-lg font-bold text-navy mb-2">{cat.name}</h3>
+                <p className="text-sm text-navy/70 leading-relaxed">{cat.desc}</p>
               </Link>
             ))}
           </div>

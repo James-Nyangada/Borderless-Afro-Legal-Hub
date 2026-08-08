@@ -54,16 +54,15 @@ export default function LandingHero() {
         
         <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent transition-opacity duration-300 group-hover:opacity-80 z-0" />
         
-        <div className="relative z-10 flex w-full max-w-3xl flex-col items-start gap-4">
-          <span className="text-sm font-semibold uppercase tracking-wider text-white/90">
-            Featured
-          </span>
+        <div className="relative z-10 flex w-full max-w-4xl flex-col items-start gap-6">
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-white">
-            Insights for Investors and Founders <br />
-            Navigating Africa's Legal Landscape
+            Borderless Legal Hub
           </h1>
-          <p className="mt-2 max-w-2xl text-lg text-gray-200 sm:text-xl">
-            Providing premier cross-border intelligence, deep regulatory analysis, and actionable insights to empower your legal and business strategies across the continent.
+          <h2 className="text-2xl font-medium sm:text-3xl text-gold">
+            Demystifying Cross-Border Capital, Entity Formation & Relocation Across Africa
+          </h2>
+          <p className="mt-2 max-w-3xl text-lg text-gray-200 sm:text-xl leading-relaxed">
+            Borderless Legal Hub is an independent thought-leadership platform delivering market intelligence and regulatory insights on cross-border capital flows, entity frameworks, and investment landscapes across Africa. Designed for institutional investors, global entrepreneurs, and the diaspora, the Hub unifies and demystifies Africa’s fragmented legal environment, making complex multi-jurisdictional information transparent, clear, and easily accessible.
           </p>
         </div>
 

@@ -104,6 +104,26 @@ export default async function AboutPage() {
           </section>
         </div>
 
+        {/* About the Founder */}
+        <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto mt-24 mb-24">
+          <div className="bg-white border border-gray-200 rounded-3xl p-10 sm:p-16 flex flex-col md:flex-row gap-12 items-center">
+            <div className="relative w-48 h-48 shrink-0 rounded-full overflow-hidden border-4 border-gold shadow-lg">
+              <Image src="/logo.jpg" alt="Ian Mathenge" fill className="object-cover" />
+            </div>
+            <div>
+              <h2 className="text-3xl sm:text-4xl font-bold text-[#101828] mb-6">About the Founder</h2>
+              <div className="space-y-4 text-[#475467] text-lg leading-relaxed">
+                <p>
+                  Borderless Legal Hub is founded and edited by Ian Mwiti Mathenge, a corporate lawyer admitted to practice in New York and Kenya, working at the intersection of international capital markets and cross-border corporate execution. His experience spans debt and equity offerings, green and sustainable-finance instruments, corporate governance, and mergers and acquisitions.
+                </p>
+                <p>
+                  He holds an LL.M. from Harvard Law School — where he was named Dean's Scholar for his work on the rise of ESG in corporate law and governance — a Bachelor of Laws (First Class Honours), and a Master of Laws in Human Rights and Democratisation in Africa (with Distinction). That combination of global capital markets and African human-rights and development is the perspective the Hub is written from.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
 
       </main>
 
