@@ -1,9 +1,21 @@
 import Image from "next/image";
 import Link from "next/link";
-import { ChevronDown, Menu, Zap, Mail, MapPin, Phone, Plus, Globe } from "lucide-react";
+import { ChevronDown, Menu, Zap, Mail, MapPin, Phone, Plus, Globe, Facebook, Twitter, Linkedin, Instagram, Youtube, Github, MessageCircle } from "lucide-react";
 import Footer from "@/components/Footer";
 import { fetchAPI } from '@/lib/api';
 import ContactForm from "@/components/ContactForm";
+
+const getSocialIcon = (platform: string) => {
+  const p = platform.toLowerCase();
+  if (p.includes('facebook')) return <Facebook className="w-5 h-5" />;
+  if (p.includes('twitter') || p.includes('x')) return <Twitter className="w-5 h-5" />;
+  if (p.includes('linkedin')) return <Linkedin className="w-5 h-5" />;
+  if (p.includes('instagram')) return <Instagram className="w-5 h-5" />;
+  if (p.includes('youtube')) return <Youtube className="w-5 h-5" />;
+  if (p.includes('github')) return <Github className="w-5 h-5" />;
+  if (p.includes('whatsapp')) return <MessageCircle className="w-5 h-5" />;
+  return <Globe className="w-5 h-5" />;
+};
 
 export const metadata = {
   title: "Contact Us - Untitled UI",
@@ -85,11 +97,10 @@ export default async function ContactPage() {
                     </div>
                     <h3 className="text-lg font-semibold text-[#101828] mb-2">Social</h3>
                     <p className="text-[#475467] text-sm mb-4 flex-1">Connect with us on social media.</p>
-                    <div className="flex flex-col gap-2">
+                    <div className="flex items-center gap-4">
                       {socialLinks.map((link: any, index: number) => (
-                        <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="text-[#7f56d9] font-medium text-sm hover:underline flex items-center gap-2">
-                           <span className="w-1.5 h-1.5 rounded-full bg-[#7f56d9]"></span>
-                           {link.platform}
+                        <a key={index} href={link.url} target="_blank" rel="noopener noreferrer" className="text-[#7f56d9] hover:text-[#6941c6] transition-colors" title={link.platform}>
+                           {getSocialIcon(link.platform)}
                         </a>
                       ))}
                     </div>
