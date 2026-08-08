@@ -120,6 +120,7 @@ export default async function Footer() {
             
           </div>
         </div>
+        </div>
       </footer>
     </div>
   );
