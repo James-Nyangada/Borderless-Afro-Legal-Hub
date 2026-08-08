@@ -113,11 +113,11 @@ export default async function Footer() {
           </div>
           <div className="flex flex-col sm:flex-row items-center justify-between gap-6">
             <div className="flex flex-col gap-2 text-center sm:text-left">
-              <p className="text-sm text-white/50">
+              <p className="text-sm text-white/80">
                 © {new Date().getFullYear()} Borderless Legal Hub. All rights reserved.
               </p>
-              <p className="text-xs text-white/40">
-                Developed by <a href="https://www.afringelimited.co.ke" target="_blank" rel="noopener noreferrer" className="hover:text-gold transition-colors underline underline-offset-2">Afringe Limited</a>
+              <p className="text-xs text-white/70">
+                Developed by <a href="https://www.afringelimited.co.ke" target="_blank" rel="noopener noreferrer" className="text-white hover:text-gold transition-colors underline underline-offset-2">Afringe Limited</a>
               </p>
             </div>
           <div className="flex items-center gap-6 text-sm">

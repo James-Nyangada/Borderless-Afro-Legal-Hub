@@ -110,7 +110,7 @@ export default function BlogCard({ post }: BlogCardProps) {
           <h3 className="text-xl font-bold leading-6 text-navy transition-colors group-hover:text-navy-2 line-clamp-2">
             {post.title}
           </h3>
-          <p className="mt-3 line-clamp-2 text-sm leading-6 text-navy/70 flex-1">
+          <p className="mt-3 line-clamp-2 text-sm leading-6 text-navy/80 flex-1">
             {post.excerpt}
           </p>
           <div className="mt-6 flex items-center gap-3">
@@ -125,12 +125,12 @@ export default function BlogCard({ post }: BlogCardProps) {
             </div>
             <div className="text-sm font-medium leading-6">
               <span className="text-navy">{authorName}</span>
-              <span className="text-navy/50 font-normal mx-1">•</span>
-              <span className="text-navy/60 font-normal">
+              <span className="text-navy/70 font-normal mx-1">•</span>
+              <span className="text-navy/90 font-normal">
                 {dateString}
               </span>
-              <span className="text-navy/50 font-normal mx-1">•</span>
-              <span className="text-navy/60 font-normal whitespace-nowrap">
+              <span className="text-navy/70 font-normal mx-1">•</span>
+              <span className="text-navy/90 font-normal whitespace-nowrap">
                 {readingTime} min read
               </span>
             </div>

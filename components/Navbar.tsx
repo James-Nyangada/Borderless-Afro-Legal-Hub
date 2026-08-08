@@ -35,6 +35,7 @@ export default function Navbar() {
         <button 
           className="lg:hidden text-navy/70 hover:text-navy transition-colors z-50"
           onClick={() => setIsOpen(!isOpen)}
+          aria-label="Toggle menu"
         >
           {isOpen ? <X className="h-6 w-6 text-gold" /> : <Menu className="h-6 w-6 text-gold" />}
         </button>

@@ -84,7 +84,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
         {/* Article Container */}
         <article className="mx-auto max-w-4xl px-4 py-12 sm:px-6 lg:px-8 lg:py-16">
           {/* Breadcrumbs */}
-          <div className="flex items-center gap-2 text-sm text-navy/60 font-medium mb-10">
+          <div className="flex items-center gap-2 text-sm text-navy/80 font-medium mb-10">
             <Link href="/" className="hover:text-navy transition-colors">Home</Link>
             <ChevronRight className="h-4 w-4" />
             <Link href="/blogs" className="hover:text-navy transition-colors">Blog</Link>
@@ -119,7 +119,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
               */}
               <div>
                 <div className="font-semibold text-navy">{authorName}</div>
-                <div className="text-sm text-navy/60">{dateString}</div>
+                <div className="text-sm text-navy/90">{dateString}</div>
               </div>
             </div>
           </header>

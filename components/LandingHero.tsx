@@ -75,15 +75,19 @@ export default function LandingHero() {
           {carouselImages.map((_, index) => (
             <button
               key={index}
-              className={`h-2 rounded-full transition-all duration-500 ease-in-out ${
-                index === currentIndex ? "w-8 bg-gold" : "w-2 bg-white/50 hover:bg-white/70"
-              }`}
+              className="w-11 h-11 flex items-center justify-center focus:outline-none"
               onClick={(e) => {
                 e.stopPropagation();
                 setCurrentIndex(index);
               }}
               aria-label={`Go to slide ${index + 1}`}
-            />
+            >
+              <div
+                className={`h-2 rounded-full transition-all duration-500 ease-in-out ${
+                  index === currentIndex ? "w-8 bg-gold" : "w-2 bg-white/50 hover:bg-white/70"
+                }`}
+              />
+            </button>
           ))}
         </div>
       </div>
