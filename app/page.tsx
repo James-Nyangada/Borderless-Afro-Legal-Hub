@@ -142,9 +142,9 @@ export default async function BlogHome() {
             </div>
             
             <div className="relative z-10 text-center md:text-left">
-              <h2 className="text-2xl font-bold text-navy mb-2">About the Author</h2>
+              <h2 className="text-2xl font-bold text-navy mb-2">About the Founder</h2>
               <p className="text-navy/70 leading-relaxed mb-6">
-                Insights and analysis curated by Ian Mathenge, Advocate of the High Court of Kenya. Bridging the gap between complex cross-border regulations and actionable business strategy for investors in Africa.
+                Borderless Legal Hub is founded and edited by Ian Mwiti Mathenge, a corporate lawyer admitted to practice in New York and Kenya, working at the intersection of international capital markets and cross-border corporate execution.
               </p>
               <Link href="/about" className="inline-flex items-center gap-2 font-semibold text-navy hover:text-gold transition-colors">
                 Read full bio <ArrowUpRight className="h-4 w-4" />
