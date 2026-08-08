@@ -105,7 +105,7 @@ export default async function AboutPage() {
         </div>
 
         {/* About the Founder */}
-        <section className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto mt-24 mb-24">
+        <section id="about-founder" className="px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto mt-24 mb-24">
           <div className="bg-white border border-gray-200 rounded-3xl p-10 sm:p-16 flex flex-col md:flex-row gap-12 items-center">
             <div className="relative w-48 h-48 shrink-0 rounded-full overflow-hidden border-4 border-gold shadow-lg">
               <Image src="/logo.jpg" alt="Ian Mathenge" fill className="object-cover" />

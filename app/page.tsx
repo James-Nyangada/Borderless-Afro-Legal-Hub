@@ -146,7 +146,7 @@ export default async function BlogHome() {
               <p className="text-navy/70 leading-relaxed mb-6">
                 Borderless Legal Hub is founded and edited by Ian Mwiti Mathenge, a corporate lawyer admitted to practice in New York and Kenya, working at the intersection of international capital markets and cross-border corporate execution.
               </p>
-              <Link href="/about" className="inline-flex items-center gap-2 font-semibold text-navy hover:text-gold transition-colors">
+              <Link href="/about#about-founder" className="inline-flex items-center gap-2 font-semibold text-navy hover:text-gold transition-colors">
                 Read full bio <ArrowUpRight className="h-4 w-4" />
               </Link>
             </div>
