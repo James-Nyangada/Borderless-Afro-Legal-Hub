@@ -56,7 +56,7 @@ export default function LandingHero() {
         
         <div className="relative z-10 flex w-full max-w-4xl flex-col items-start gap-6">
           <h1 className="text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl text-white">
-            Borderless Legal Hub
+            Borderless Afro Legal Hub
           </h1>
           <h2 className="text-2xl font-medium sm:text-3xl text-gold">
             Demystifying Cross-Border Capital, Entity Formation & Relocation Across Africa
