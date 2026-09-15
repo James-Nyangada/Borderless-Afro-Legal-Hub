@@ -130,8 +130,13 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
           )}
 
           {/* Article Body */}
+          <style dangerouslySetInnerHTML={{__html: `
+            .blog-content p { display: inline; }
+            .blog-content p:not(:empty)::after { content: " "; }
+            .blog-content p:empty { display: block; height: 1.5rem; }
+          `}} />
           <div 
-            className="prose prose-lg prose-navy mx-auto text-navy/80 break-words prose-p:m-0 prose-headings:m-0"
+            className="blog-content prose prose-lg prose-navy mx-auto text-navy/80 break-words prose-p:m-0 prose-headings:m-0"
             dangerouslySetInnerHTML={{ 
               __html: post.content ? post.content
                 .replace(/&lt;/g, '<')
