@@ -131,7 +131,7 @@ export default async function BlogPostPage({ params }: { params: Promise<{ slug:
 
           {/* Article Body */}
           <div 
-            className="prose prose-lg prose-navy mx-auto text-navy/80 break-words"
+            className="prose prose-lg prose-navy mx-auto text-navy/80 break-words prose-p:m-0 prose-headings:m-0"
             dangerouslySetInnerHTML={{ 
               __html: post.content ? post.content
                 .replace(/&lt;/g, '<')
